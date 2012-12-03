@@ -1,0 +1,24 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+FSK600BaudTA900TB1500Mod	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+off	KEYWORD2
+generateTone KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+FSK600Baud_900HZ_HALF_PERIOD_US LITERAL1
+FSK600Baud_900HZ_HALF_PERIOD_US_LOOPS LITERAL2
+FSK600Baud_1500HZ_HALF_PERIOD_US LITERAL3
+FSK600Baud_1500HZ_HALF_PERIOD_US_LOOPS LITERAL4
+
