@@ -1,0 +1,23 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+FCOEV2				KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+toggleAction		KEYWORD2
+switchToNextMode	KEYWORD2
+getCurrentMode		KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+MODE_VIDEO 			LITERAL1
+MODE_PHOTO_SERIAL	LITERAL1
+MODE_PHOTO_SINGLE 	LITERAL1
