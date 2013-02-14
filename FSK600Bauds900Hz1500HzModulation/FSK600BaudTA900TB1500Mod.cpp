@@ -72,7 +72,7 @@ size_t FSK600BaudTA900TB1500Mod::write(uint8_t c)
 
 	// idle state
 	generateTone(HIGH);
-	
+	generateTone(HIGH);
 	
 	// start bit    
 	generateTone(LOW);
