@@ -76,11 +76,19 @@ public:
 	 */
 	void generateTone(bool bit);
 	
+	/**
+	 * Modulates an array of bytes
+	 * @param bytes the array containing bytes to modulate
+	 * @param length the number of bytes to modulate (starting at bytes[0])
+	 */
+	void modulateBytes(unsigned char *bytes, int length);
+
 	virtual size_t write(uint8_t byte);
 	virtual int read();
 	virtual int peek();
 	virtual int available();
 	virtual void flush();
+
 
 };
 #endif

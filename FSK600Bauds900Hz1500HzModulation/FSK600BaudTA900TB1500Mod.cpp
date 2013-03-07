@@ -91,6 +91,18 @@ size_t FSK600BaudTA900TB1500Mod::write(uint8_t c)
 	SREG = oldSREG;
 }
 
+/**
+ * Modulates an array of bytes
+ * @param bytes the array containing bytes to modulate
+ * @param length the number of bytes to modulate (starting at bytes[0])
+ */
+void FSK600BaudTA900TB1500Mod::modulateBytes(unsigned char *bytes, int length)
+{
+  for (int cpt = 0; cpt < length; cpt++)
+    this->write(bytes[cpt]);
+  this->off();
+}
+
 int FSK600BaudTA900TB1500Mod::read() {return -1;}
 int FSK600BaudTA900TB1500Mod::available() {return 0;}
 void FSK600BaudTA900TB1500Mod::flush() {};
