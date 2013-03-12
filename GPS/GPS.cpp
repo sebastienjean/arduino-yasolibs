@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2012 Sebastien Jean.
+* Copyright (c) 2012-2013 Sebastien Jean.
 * 
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the GNU Lesser Public License v3.0
@@ -13,14 +13,31 @@
 #include <Arduino.h> 
 #include <GPS.h>
 
-GPS::GPS(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout)
+GPS::GPS(Stream *in)
 {
-    this->in = in;
-	this->millisecondsTimeout = millisecondsTimeout;
-	this->charsTimeout = charsTimeout;
+    m_in = in;
+    m_out = NULL;
+	m_millisecondsTimeout = DEFAULT_READING_TIMEOUT_VALUE_IN_MILLIS;
+	m_charsTimeout = DEFAULT_READING_TIMEOUT_VALUE_IN_CHARS;
 }
 
-GPS_status_enum GPS::readNMEA(char *nmeaString)
+GPS::GPS(Stream *in, Stream *out)
+{
+    m_in = in;
+    m_out = out;
+	m_millisecondsTimeout = DEFAULT_READING_TIMEOUT_VALUE_IN_MILLIS;
+	m_charsTimeout = DEFAULT_READING_TIMEOUT_VALUE_IN_CHARS;
+}
+
+GPS::GPS(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout, Stream *out)
+{
+    m_in = in;
+    m_out = out;
+	m_millisecondsTimeout = millisecondsTimeout;
+	m_charsTimeout = charsTimeout;
+}
+
+GPS_status_enum GPS::readNMEA()
 {
     unsigned char offset = 0;
     unsigned char state = 0;
@@ -31,13 +48,13 @@ GPS_status_enum GPS::readNMEA(char *nmeaString)
 
     while (1)
     {
-		if (millis() - time > this->millisecondsTimeout) return GPS_TIMEOUT;
+		if (millis() - time > m_millisecondsTimeout) return GPS_TIMEOUT;
         		
-        if (!(this->in->available())) continue;
+        if (!(m_in->available())) continue;
 				
-		c = this->in->read();
+		c = m_in->read();
 
-		if (num++ >= this->charsTimeout) return GPS_NOT_NMEA;
+		if (num++ >= m_charsTimeout) return GPS_NOT_NMEA;
 		
         if (c == '$')
         {
@@ -53,7 +70,7 @@ GPS_status_enum GPS::readNMEA(char *nmeaString)
 		
         if (state <= 5)
         {
-            if (c != nmeaString[state])
+            if (c != m_nmeaSentenceBuffer[state])
             {
                 state = 0;
             }
@@ -74,7 +91,7 @@ GPS_status_enum GPS::readNMEA(char *nmeaString)
 			
             if (offset < MAX_NMEA_SENTENCE_LENGTH - 1)
             {
-                nmeaString[offset++] = c;
+            	m_nmeaSentenceBuffer[offset++] = c;
             }
             else
             {
@@ -84,30 +101,26 @@ GPS_status_enum GPS::readNMEA(char *nmeaString)
         continue;
     }
 	
-	nmeaString[offset++] = '\r';
-	nmeaString[offset++] = '\n';
-    nmeaString[offset] = '\0';
+    m_nmeaSentenceBuffer[offset++] = '\r';
+    m_nmeaSentenceBuffer[offset++] = '\n';
+    m_nmeaSentenceBuffer[offset] = '\0';
+
+    if (m_out != NULL) m_out->print(m_nmeaSentenceBuffer);
     return GPS_OK;
 }
 
-GPS_status_enum GPS::readRMC(char *result)
+int GPS::findStartOfFieldOffset(int fieldNumber)
 {
-    result[0] = '$';
-    result[1] = 'G';
-    result[2] = 'P';
-    result[3] = 'R';
-    result[4] = 'M';
-    result[5] = 'C';
-    return this->readNMEA(result);
+	if ((fieldNumber<1)||(fieldNumber>9)) return -1;
+
+	for (int i=0;i<MAX_NMEA_SENTENCE_LENGTH;i++)
+	{
+		if (m_nmeaSentenceBuffer[i] == '\0') return -1;
+
+		if (m_nmeaSentenceBuffer[i] == ',') fieldNumber -= 1;
+
+		if (fieldNumber == 0) return i+1;
+	}
+	return -1;
 }
 
-GPS_status_enum  GPS::readGGA(char *result)
-{
-    result[0] = '$';
-    result[1] = 'G';
-    result[2] = 'P';
-    result[3] = 'G';
-    result[4] = 'G';
-    result[5] = 'A';
-    return this->readNMEA(result);
-}

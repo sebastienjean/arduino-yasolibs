@@ -81,18 +81,3 @@ void loop() // run over and over
 
 	delay(2000);
 }
-
-/**
- * Application's main (what else to say?)
- * @return (never)
- */
-int main(void) {
-	init();
-
-	setup();
-
-	for (;;)
-		loop();
-
-	return 0;
-}
