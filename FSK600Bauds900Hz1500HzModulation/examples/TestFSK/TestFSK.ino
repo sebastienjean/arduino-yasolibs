@@ -50,9 +50,7 @@ void loop() // run over and over
 {
   while (true)
   {
-  	for (int cpt=0; cpt<26; cpt++)
-    	fskMod.write(message[cpt]);
-    	
-    	delay (2000);
+    fskMod.modulateBytes(message, strlen(message));
+    delay (2000);
   }
 }

@@ -96,7 +96,7 @@ size_t FSK600BaudTA900TB1500Mod::write(uint8_t c)
  * @param bytes the array containing bytes to modulate
  * @param length the number of bytes to modulate (starting at bytes[0])
  */
-void FSK600BaudTA900TB1500Mod::modulateBytes(unsigned char *bytes, int length)
+void FSK600BaudTA900TB1500Mod::modulateBytes(char *bytes, int length)
 {
   for (int cpt = 0; cpt < length; cpt++)
     this->write(bytes[cpt]);

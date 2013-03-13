@@ -81,7 +81,7 @@ public:
 	 * @param bytes the array containing bytes to modulate
 	 * @param length the number of bytes to modulate (starting at bytes[0])
 	 */
-	void modulateBytes(unsigned char *bytes, int length);
+	void modulateBytes(char *bytes, int length);
 
 	virtual size_t write(uint8_t byte);
 	virtual int read();
