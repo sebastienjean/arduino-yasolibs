@@ -18,6 +18,7 @@ void GPS3D::initData()
 {
 	GPS2D::initData();
 	m_satellitesInUse = 0;
+	m_hdop = 0.0;
 	m_altitude = 0.0;
 }
 

@@ -111,7 +111,7 @@ GPS_status_enum GPS::readNMEA()
 
 int GPS::findStartOfFieldOffset(int fieldNumber)
 {
-	if ((fieldNumber<1)||(fieldNumber>9)) return -1;
+	if ((fieldNumber<1)) return -1;
 
 	for (int i=0;i<MAX_NMEA_SENTENCE_LENGTH;i++)
 	{

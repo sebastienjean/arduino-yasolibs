@@ -109,12 +109,12 @@ GPS_status_enum GPS2D::parseRMC()
 		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
 
 		// Course over ground extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_SPEED_OVER_GROUND_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(RMC_COURSE_OVER_GROUND_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(RMC_SPEED_OVER_GROUND_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(RMC_COURSE_OVER_GROUND_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
 		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_speedOverGround = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
+		m_courseOverGround = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
 		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
 	}
 	return status;
