@@ -68,37 +68,10 @@ private:
 	 */
 	Stream *m_out;
 
-protected:
-
-	// protected
-	/**
-	 * Internal buffer used to store NMEA sentences
-	*/
-	// TODO externalize buffer
-	char m_nmeaSentenceBuffer[MAX_NMEA_SENTENCE_LENGTH];
-
-	/**
-	 * Reads an NMEA sentence.
-	 * <tt>m_nmeaSentenceBuffer</tt> is supposed to be preloaded with the beginning of
-	 * the sentence to be read (e.g. "$GPRMC").
-	 *
-	 * @return NMEA sentence reading status code
-	 */
-	GPS_status_enum readNMEA(void);
-
-	/**
-	 * Finds the offset where a given NMEA sentence field starts (searching for field separator)
-	 * <tt>m_nmeaSentenceBuffer</tt> is supposed to contain the sentence where to search for field.
-	 *
-	 * @param fieldNumber the number of the field to locate (numbering starts at 1, 0 corresponding to
-	 * sentence name and not being expected to be searched.
-	 * @return offset where the field starts if found, -1 else
-	 */
-	int findStartOfFieldOffset(int fieldNumber);
-
 public:
 
 	// public methods
+
 	/**
 	 * Creates a new GPS instance, reading sentences from <tt>in</tt> with timeouts set to
 	 * default values.
@@ -125,9 +98,26 @@ public:
 	GPS(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout, Stream *out);
 
 	/**
-	 * Reads required sentences from input stream (optionally writing valid ones on output stream),
-	 * and extracting positioning data.
+	 * Reads an NMEA sentence.
+	 * <tt>m_nmeaSentenceBuffer</tt> is supposed to be preloaded with the beginning of
+	 * the sentence to be read (e.g. "$GPRMC").
+	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes.
+	 * @return NMEA sentence reading status code
 	 */
-	virtual GPS_status_enum readPositioningData(void) = 0;
+	GPS_status_enum readNMEA(char *nmeaSentenceBuffer);
+
+	/**
+	 * Finds the offset where a given NMEA sentence field starts (searching for field separator)
+	 * <tt>m_nmeaSentenceBuffer</tt> is supposed to contain the sentence where to search for field.
+	 *
+	 * @param nmeaSentenceBuffer external internal buffer expected to contain a previously read NMEA sentence.
+	 * @param fieldNumber the number of the field to locate (numbering starts at 1, 0 corresponding to
+	 * sentence name and not being expected to be searched.
+	 * @return offset where the field starts if found, -1 else
+	 */
+	int findStartOfFieldOffset(char *nmeaSentenceBuffer, int fieldNumber);
 };
 #endif

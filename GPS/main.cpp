@@ -16,7 +16,7 @@
  * This example assumes that the transmit pin of a GPS is connected to hardware serial RX pin.
  *
  * This application endlessly reads RMC/GGA NMEA sentences through hardware serial at
- * 4800 Baud (with a timeout set to 2s or 2000 chars ), outputs valid sentences through
+ * 4800 Baud (with timeouts set to 2s or 2000 chars ), outputs sentences through
  * hardware serial, as well as 3D positioning decoded data.
  * N.B. because this application uses the same hardware serial for GPS and debug, and since
  * GPS receivers can use 3.3V TTL signals, it is better to open debug connection on PC-side
@@ -25,6 +25,7 @@
  */
 
 #include <Arduino.h>
+#include <GPS.h>
 #include <GPS3D.h>
 
 /**
@@ -35,7 +36,17 @@
 /**
  * NMEA GPS using software serial port, with 2s and 2000 chars timeout
  */
-GPS3D gps(&Serial, &Serial);
+GPS3D gps(&Serial, NULL);
+
+/**
+ * Buffer used to read NMEA RMC sentences.
+ */
+char nmeaRmcSentenceBuffer[MAX_NMEA_SENTENCE_LENGTH];
+
+/**
+ * Buffer used to read NMEA GGA sentences.
+ */
+char nmeaGgaSentenceBuffer[MAX_NMEA_SENTENCE_LENGTH];
 
 /**
  * Arduino's setup function, called once at startup, after init
@@ -51,7 +62,7 @@ void setup()
 void loop() // run over and over
 {
 	Serial.println("Reading NMEA sentences");
-	GPS_status_enum result = gps.readPositioningData();
+	GPS_status_enum result = gps.readPositioningData(nmeaRmcSentenceBuffer, nmeaGgaSentenceBuffer);
 	switch (result)
 	{
 		case GPS_OK : Serial.println("OK"); break;
@@ -78,6 +89,8 @@ void loop() // run over and over
 	Serial.println(gps.getSatellitesInUse());
 	Serial.print("HDOP: ");
 	Serial.println(gps.getHDOP(),1);
+	Serial.print(nmeaRmcSentenceBuffer);
+	Serial.print(nmeaGgaSentenceBuffer);
 
 	delay(2000);
 }

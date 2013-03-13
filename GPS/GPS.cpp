@@ -37,7 +37,7 @@ GPS::GPS(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout, Stream
 	m_charsTimeout = charsTimeout;
 }
 
-GPS_status_enum GPS::readNMEA()
+GPS_status_enum GPS::readNMEA(char *nmeaSentenceBuffer)
 {
     unsigned char offset = 0;
     unsigned char state = 0;
@@ -70,7 +70,7 @@ GPS_status_enum GPS::readNMEA()
 		
         if (state <= 5)
         {
-            if (c != m_nmeaSentenceBuffer[state])
+            if (c != nmeaSentenceBuffer[state])
             {
                 state = 0;
             }
@@ -91,7 +91,7 @@ GPS_status_enum GPS::readNMEA()
 			
             if (offset < MAX_NMEA_SENTENCE_LENGTH - 1)
             {
-            	m_nmeaSentenceBuffer[offset++] = c;
+            	nmeaSentenceBuffer[offset++] = c;
             }
             else
             {
@@ -101,23 +101,23 @@ GPS_status_enum GPS::readNMEA()
         continue;
     }
 	
-    m_nmeaSentenceBuffer[offset++] = '\r';
-    m_nmeaSentenceBuffer[offset++] = '\n';
-    m_nmeaSentenceBuffer[offset] = '\0';
+    nmeaSentenceBuffer[offset++] = '\r';
+    nmeaSentenceBuffer[offset++] = '\n';
+    nmeaSentenceBuffer[offset] = '\0';
 
-    if (m_out != NULL) m_out->print(m_nmeaSentenceBuffer);
+    if (m_out != NULL) m_out->print(nmeaSentenceBuffer);
     return GPS_OK;
 }
 
-int GPS::findStartOfFieldOffset(int fieldNumber)
+int GPS::findStartOfFieldOffset(char *nmeaSentenceBuffer, int fieldNumber)
 {
 	if ((fieldNumber<1)) return -1;
 
 	for (int i=0;i<MAX_NMEA_SENTENCE_LENGTH;i++)
 	{
-		if (m_nmeaSentenceBuffer[i] == '\0') return -1;
+		if (nmeaSentenceBuffer[i] == '\0') return -1;
 
-		if (m_nmeaSentenceBuffer[i] == ',') fieldNumber -= 1;
+		if (nmeaSentenceBuffer[i] == ',') fieldNumber -= 1;
 
 		if (fieldNumber == 0) return i+1;
 	}

@@ -71,11 +71,14 @@ private:
 	double m_courseOverGround; // RMC field 8
 
 	/**
-	 * Internal method used for RMC sentence reading.
+	 * Reads an NMEA RMC sentence.
 	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA RMC sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes.
 	 * @return NMEA sentence reading status code
 	 */
-	GPS_status_enum readRMC(void);
+	GPS_status_enum readRMC(char *nmeaSentenceBuffer);
 
 protected:
 
@@ -89,9 +92,13 @@ protected:
 	/**
 	 * Reads and parses an NMEA RMC sentence, extracting 2D positioning data
 	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes and to contain a previously read
+	 * RMC sentence.
 	 * @return NMEA sentence reading status code
 	 */
-	GPS_status_enum parseRMC(void);
+	GPS_status_enum parseRMC(char *nmeaSentenceBuffer);
 
 public:
 
@@ -124,8 +131,13 @@ public:
 	/**
 	 * Reads required sentences from input stream (optionally writing valid ones on output stream),
 	 * and extracting 2D positioning data.
+	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA RMC sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes.
+	 * @return NMEA sentence reading status code
 	 */
-	virtual GPS_status_enum readPositioningData(void);
+	GPS_status_enum readPositioningData(char *nmeaRmcSentenceBuffer);
 
 	/**
 	 * Getter for Fix status

@@ -46,12 +46,16 @@ private:
 
 	// private methods
 
+
 	/**
-	 * Reads an NMEA GGA sentence, and extracts positioning data
+	 * Reads an NMEA GGA sentence.
 	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA GGA sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes.
 	 * @return NMEA sentence reading status code
 	 */
-	GPS_status_enum readGGA(void);
+	GPS_status_enum readGGA(char *nmeaSentenceBuffer);
 
 protected:
 
@@ -62,11 +66,15 @@ protected:
 	virtual void initData(void);
 
 	/**
-	 * Reads and parses an NMEA GGA sentence, extracting 3D positioning data
+	 * Reads and parses an NMEA GGA sentence, extracting 3D positioning and additional data
 	 *
+	 * @param nmeaSentenceBuffer external buffer used to store NMEA sentence
+	 * bytes once read. This buffer is expected to have a length of at least
+	 * <tt>MAX_NMEA_SENTENCE_LENGTH</tt> bytes and to contain a previously read
+	 * GGA sentence.
 	 * @return NMEA sentence reading status code
 	 */
-	GPS_status_enum parseGGA(void);
+	GPS_status_enum parseGGA(char *nmeaSentenceBuffer);
 
 public:
 	// public methods
@@ -99,7 +107,7 @@ public:
 		 * Reads required sentences from input stream (optionally writing valid ones on output stream),
 		 * and extracting positioning data.
 		 */
-		virtual GPS_status_enum readPositioningData(void);
+		GPS_status_enum readPositioningData(char *nmeaRmcSentenceBuffer, char *nmeaGgaSentenceBuffer);
 
 		/**
 		 * Getter for number of satellites in use

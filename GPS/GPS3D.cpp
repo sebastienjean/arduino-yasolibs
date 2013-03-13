@@ -37,63 +37,63 @@ GPS3D::GPS3D(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout, St
 	GPS3D::initData();
 }
 
-GPS_status_enum GPS3D::readGGA()
+GPS_status_enum GPS3D::readGGA(char *nmeaSentenceBuffer)
 {
-	m_nmeaSentenceBuffer[0] = '$';
-	m_nmeaSentenceBuffer[1] = 'G';
-	m_nmeaSentenceBuffer[2] = 'P';
-	m_nmeaSentenceBuffer[3] = 'G';
-	m_nmeaSentenceBuffer[4] = 'G';
-	m_nmeaSentenceBuffer[5] = 'A';
+	nmeaSentenceBuffer[0] = '$';
+	nmeaSentenceBuffer[1] = 'G';
+	nmeaSentenceBuffer[2] = 'P';
+	nmeaSentenceBuffer[3] = 'G';
+	nmeaSentenceBuffer[4] = 'G';
+	nmeaSentenceBuffer[5] = 'A';
 
-	return readNMEA();
+	return readNMEA(nmeaSentenceBuffer);
 }
 
-GPS_status_enum GPS3D::parseGGA()
+GPS_status_enum GPS3D::parseGGA(char *nmeaSentenceBuffer)
 {
 	int startOfFieldOffset = 0;
 	int endOfFieldOffset = 0;
 
-	GPS_status_enum status = readGGA();
+	GPS_status_enum status = readGGA(nmeaSentenceBuffer);
 
 	if (status == GPS_OK)
 	{
 		// Satellites in use extraction
-		startOfFieldOffset = findStartOfFieldOffset(GGA_SATS_IN_USE_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_SATS_IN_USE_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(GGA_SATS_IN_USE_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_SATS_IN_USE_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_satellitesInUse = atoi(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_satellitesInUse = atoi(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
 
 		// HDOP extraction
-		startOfFieldOffset = findStartOfFieldOffset(GGA_HDOP_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_HDOP_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(GGA_HDOP_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_HDOP_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_hdop = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_hdop = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
 
 		// Altitude extraction
-		startOfFieldOffset = findStartOfFieldOffset(GGA_ALTITUDE_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_ALTITUDE_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(GGA_ALTITUDE_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, GGA_ALTITUDE_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_altitude = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_altitude = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
 	}
 	return status;
 }
 
-GPS_status_enum GPS3D::readPositioningData()
+GPS_status_enum GPS3D::readPositioningData(char *nmeaRmcSentenceBuffer, char *nmeaGgaSentenceBuffer)
 {
-	GPS_status_enum status = GPS2D::readPositioningData();
+	GPS_status_enum status = GPS2D::readPositioningData(nmeaRmcSentenceBuffer);
 
 	if (status == GPS_OK)
-		status = parseGGA();
+		status = parseGGA(nmeaGgaSentenceBuffer);
 	return status;
 
 }

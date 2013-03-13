@@ -38,32 +38,32 @@ GPS2D::GPS2D(Stream *in, uint16_t millisecondsTimeout, uint16_t charsTimeout, St
 	GPS2D::initData();
 }
 
-GPS_status_enum GPS2D::readRMC()
+GPS_status_enum GPS2D::readRMC(char *nmeaSentenceBuffer)
 {
-	m_nmeaSentenceBuffer[0] = '$';
-	m_nmeaSentenceBuffer[1] = 'G';
-	m_nmeaSentenceBuffer[2] = 'P';
-	m_nmeaSentenceBuffer[3] = 'R';
-	m_nmeaSentenceBuffer[4] = 'M';
-	m_nmeaSentenceBuffer[5] = 'C';
+	nmeaSentenceBuffer[0] = '$';
+	nmeaSentenceBuffer[1] = 'G';
+	nmeaSentenceBuffer[2] = 'P';
+	nmeaSentenceBuffer[3] = 'R';
+	nmeaSentenceBuffer[4] = 'M';
+	nmeaSentenceBuffer[5] = 'C';
 
-	return readNMEA();
+	return readNMEA(nmeaSentenceBuffer);
 }
 
-GPS_status_enum GPS2D::parseRMC()
+GPS_status_enum GPS2D::parseRMC(char *nmeaSentenceBuffer)
 {
 	int startOfFieldOffset = 0;
 	int endOfFieldOffset = 0;
 
-	GPS_status_enum status = readRMC();
+	GPS_status_enum status = readRMC(nmeaSentenceBuffer);
 
 	if (status == GPS_OK)
 	{
 		// Time of Fix extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_TIME_OF_FIX_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_TIME_OF_FIX_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
 		// Some GPS give time with decimal of seconds, so length of field should be more than 6
-		strncpy(m_timeOfFix, m_nmeaSentenceBuffer+startOfFieldOffset, sizeof(m_timeOfFix)-1);
+		strncpy(m_timeOfFix, nmeaSentenceBuffer+startOfFieldOffset, sizeof(m_timeOfFix)-1);
 		for (int i=0;i<sizeof(m_timeOfFix)-1; i++)
 		{
 			if ((m_timeOfFix[i] < '0')||(m_timeOfFix[i] > '9'))
@@ -74,56 +74,56 @@ GPS_status_enum GPS2D::parseRMC()
 		}
 
 		// Fix extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_FIX_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_FIX_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		if (m_nmeaSentenceBuffer[startOfFieldOffset] == 'A') m_fixStatus = true;
+		if (nmeaSentenceBuffer[startOfFieldOffset] == 'A') m_fixStatus = true;
 
 		// Latitude extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_LATITUDE_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_LATITUDE_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(RMC_LATITUDE_INDICATOR_FIELD_NUMBER) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_LATITUDE_INDICATOR_FIELD_NUMBER) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_latitude = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
-		if (m_nmeaSentenceBuffer[endOfFieldOffset+1] == 'S')
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_latitude = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		if (nmeaSentenceBuffer[endOfFieldOffset+1] == 'S')
 			m_latitude = -m_latitude;
 
 		// Longitude extraction
 		startOfFieldOffset = endOfFieldOffset+3;
-		endOfFieldOffset = findStartOfFieldOffset(RMC_LONGITUDE_INDICATOR_FIELD_NUMBER) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_LONGITUDE_INDICATOR_FIELD_NUMBER) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_longitude = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
-		if (m_nmeaSentenceBuffer[endOfFieldOffset+1] == 'W')
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_longitude = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		if (nmeaSentenceBuffer[endOfFieldOffset+1] == 'W')
 			m_longitude = -m_longitude;
 
 		// Speed over ground extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_SPEED_OVER_GROUND_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_SPEED_OVER_GROUND_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(RMC_SPEED_OVER_GROUND_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_SPEED_OVER_GROUND_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_speedOverGround = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_speedOverGround = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
 
 		// Course over ground extraction
-		startOfFieldOffset = findStartOfFieldOffset(RMC_COURSE_OVER_GROUND_FIELD_NUMBER);
+		startOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_COURSE_OVER_GROUND_FIELD_NUMBER);
 		if (startOfFieldOffset == -1) return status;
-		endOfFieldOffset = findStartOfFieldOffset(RMC_COURSE_OVER_GROUND_FIELD_NUMBER+1) -1;
+		endOfFieldOffset = findStartOfFieldOffset(nmeaSentenceBuffer, RMC_COURSE_OVER_GROUND_FIELD_NUMBER+1) -1;
 		if (endOfFieldOffset < 0) return status;
-		m_nmeaSentenceBuffer[endOfFieldOffset] = '\0';
-		m_courseOverGround = atof(m_nmeaSentenceBuffer+startOfFieldOffset);
-		m_nmeaSentenceBuffer[endOfFieldOffset] = ',';
+		nmeaSentenceBuffer[endOfFieldOffset] = '\0';
+		m_courseOverGround = atof(nmeaSentenceBuffer+startOfFieldOffset);
+		nmeaSentenceBuffer[endOfFieldOffset] = ',';
 	}
 	return status;
 }
 
-GPS_status_enum GPS2D::readPositioningData()
+GPS_status_enum GPS2D::readPositioningData(char *nmeaRmcSentenceBuffer)
 {
 	GPS2D::initData();
-	return parseRMC();
+	return parseRMC(nmeaRmcSentenceBuffer);
 }
 
 boolean GPS2D::getFix()
