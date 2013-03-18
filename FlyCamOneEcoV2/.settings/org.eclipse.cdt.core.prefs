@@ -10,6 +10,17 @@ environment/project/de.innot.avreclipse.configuration.app.release.1602708466.804
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.804897449/AVRTARGETMCU/value=atmega2560
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.804897449/append=true
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.804897449/appendContributed=true
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEACTIONOPTIONS/delimiter=\:
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEACTIONOPTIONS/operation=replace
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEACTIONOPTIONS/value=-Uflash\:w\:${BuildArtifactFileBaseName}.hex\:a
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEOPTIONS/delimiter=\:
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEOPTIONS/operation=replace
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRDUDEOPTIONS/value=-pm2560
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRTARGETMCU/delimiter=\:
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRTARGETMCU/operation=replace
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/AVRTARGETMCU/value=atmega2560
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/append=true
+environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742.695297895/appendContributed=true
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/AVRDUDEACTIONOPTIONS/delimiter=\:
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/AVRDUDEACTIONOPTIONS/operation=replace
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/AVRDUDEACTIONOPTIONS/value=-Uflash\:w\:${BuildArtifactFileBaseName}.hex\:a
@@ -21,7 +32,6 @@ environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/AVRTARGETMCU/value=atmega2560
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/append=true
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466.988798742/appendContributed=true
-
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466/AVRDUDEACTIONOPTIONS/delimiter=\:
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466/AVRDUDEACTIONOPTIONS/operation=replace
 environment/project/de.innot.avreclipse.configuration.app.release.1602708466/AVRDUDEACTIONOPTIONS/value=-Uflash\:w\:${BuildArtifactFileBaseName}.hex\:a
