@@ -112,6 +112,7 @@ GPS_status_enum
 GPS3D::readPositioningData(char *nmeaRmcSentenceBuffer,
     char *nmeaGgaSentenceBuffer)
 {
+  GPS3D::initData();
   GPS_status_enum status = GPS2D::readPositioningData(nmeaRmcSentenceBuffer);
 
   if (status == GPS_OK)
