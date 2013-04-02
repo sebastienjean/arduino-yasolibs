@@ -1,14 +1,14 @@
 /*
-* Copyright (c) 2013 Sebastien Jean.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the GNU Lesser Public License v3.0
-* which accompanies this distribution, and is available at
-* http://www.gnu.org/licenses/lgpl-3.0.html
-* 
-* Contributors:
-*     Sebastien Jean - initial API and implementation
-*/
+ * Copyright (c) 2013 Sebastien Jean.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * Contributors:
+ *     Sebastien Jean - initial API and implementation
+ */
 
 /**
  * Test application for FCOEV2 library
@@ -26,7 +26,6 @@
 #include <Arduino.h>
 #include <FCOEV2.h>
 
-
 /**
  * FCOEV2 attached to pin 4
  */
@@ -35,62 +34,66 @@ FCOEV2 fcoev2(4);
 /**
  * Arduino's setup function, called once at startup, after init
  */
-void setup()
+void
+setup()
 {
-	// Nothing special to do here !
+  // Nothing special to do here !
 }
 
 /**
  * Arduino's loop function, called in loop (incredible, isn't it ?)
  */
-void loop() // run over and over
+void
+loop() // run over and over
 {
-	unsigned long startTimeMillis;
+  unsigned long startTimeMillis;
 
-	// Recording for 5 seconds
-	fcoev2.toggleAction();
-	delay(5000);
-	fcoev2.toggleAction();
+  // Recording for 5 seconds
+  fcoev2.toggleAction();
+  delay(5000);
+  fcoev2.toggleAction();
 
-	delay(1000);
+  delay(1000);
 
-	// Switching to Serial Photo Mode
-	fcoev2.switchToNextMode();
-	delay(1000);
-	// Taking photo every 4 seconds for 30s
-	fcoev2.toggleAction();
-	startTimeMillis = millis();
-	while (1)
-	{
-		delay(1000);
-		if ( ((millis() - startTimeMillis) /1000) > 30) break;
-	}
-	fcoev2.toggleAction();
+  // Switching to Serial Photo Mode
+  fcoev2.switchToNextMode();
 
-	// Switching to Serial Photo Mode
-	fcoev2.switchToNextMode();
-	// Taking photo every second for 30s
-	for (int i=0;i<30;i++)
-	{
-		delay(1000);
-		fcoev2.toggleAction();
-	}
-	// Switching to Serial Photo Mode
-	fcoev2.switchToNextMode();
-	delay(1000);
+  // Taking photo every 4 seconds for 30s
+  fcoev2.toggleAction();
+  startTimeMillis = millis();
+  while (1)
+    {
+      delay(1000);
+      if (((millis() - startTimeMillis) / 1000) > 30)
+        break;
+    }
+  fcoev2.toggleAction();
+
+  // Switching to Serial Photo Mode
+  fcoev2.switchToNextMode();
+  // Taking photo every second for 30s
+  for (int i = 0; i < 30; i++)
+    {
+      delay(1000);
+      fcoev2.toggleAction();
+    }
+  // Switching to Serial Photo Mode
+  fcoev2.switchToNextMode();
 }
 
 /**
  * Application's main (what else to say?)
  * @return (never)
  */
-int main(void) {
-	init();
+int
+main(void)
+{
+  init();
 
-	setup();
+  setup();
 
-	for (;;)
-		loop();
+  for (;;)
+    loop();
 
-	return 0;
+  return 0;
 }
