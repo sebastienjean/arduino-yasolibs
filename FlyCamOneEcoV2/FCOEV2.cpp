@@ -1,67 +1,79 @@
 /*
-* Copyright (c) 2013 Sebastien Jean.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the GNU Lesser Public License v3.0
-* which accompanies this distribution, and is available at
-* http://www.gnu.org/licenses/lgpl-3.0.html
-* 
-* Contributors:
-*     Sebastien Jean - initial API and implementation
-*/
+ * Copyright (c) 2013 Sebastien Jean.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * Contributors:
+ *     Sebastien Jean - initial API and implementation
+ */
 
 #include <Arduino.h> 
 #include <FCOEV2.h>
 
 FCOEV2::FCOEV2(uint8_t pwmPin)
 {
-    this->pwmPin = pwmPin;
-	this->mode = MODE_VIDEO;
-	pinMode(this->pwmPin, OUTPUT);
+  this->pwmPin = pwmPin;
+  this->init();
 }
 
-void FCOEV2::idle()
+void
+FCOEV2::init()
 {
-	for (int i=0;i<IDLE_PERIODS;i++)
-	{
-		digitalWrite(this->pwmPin,HIGH);
-		delayMicroseconds(IDLE_HIGH_MICROS);
-		digitalWrite(this->pwmPin,LOW);
-		delay(PERIOD_MILLIS);
-	}
+  pinMode(this->pwmPin, OUTPUT);
+  this->mode = MODE_VIDEO;
 }
 
-void FCOEV2::signal(uint16_t pulseWidthMicros, uint8_t periods)
+void
+FCOEV2::idle()
 {
-	for (int i=0;i<periods;i++)
-	{
-		digitalWrite(this->pwmPin,HIGH);
-		delayMicroseconds(pulseWidthMicros);
-		digitalWrite(this->pwmPin,LOW);
-		delay(PERIOD_MILLIS);
-	}
+  for (int i = 0; i < IDLE_PERIODS; i++)
+    {
+      digitalWrite(this->pwmPin, HIGH);
+      delayMicroseconds(IDLE_HIGH_MICROS);
+      digitalWrite(this->pwmPin, LOW);
+      delay(PERIOD_MILLIS);
+    }
 }
 
-void FCOEV2::toggleAction()
+void
+FCOEV2::signal(uint16_t pulseWidthMicros, uint8_t periods)
 {
-	idle();
-	signal(ACTION_OR_MODE_HIGH_MICROS, ACTION_PERIODS);
-	idle();
+  for (int i = 0; i < periods; i++)
+    {
+      digitalWrite(this->pwmPin, HIGH);
+      delayMicroseconds(pulseWidthMicros);
+      digitalWrite(this->pwmPin, LOW);
+      delay(PERIOD_MILLIS);
+    }
 }
 
-void FCOEV2::switchToNextMode()
+void
+FCOEV2::toggleAction()
 {
-	idle();
-	signal(ACTION_OR_MODE_HIGH_MICROS, CHANGE_MODE_PERIODS);
-	idle();
-	if (this->mode == MODE_VIDEO) this->mode = MODE_PHOTO_SERIAL;
-	else
-		if (this->mode == MODE_PHOTO_SERIAL) this->mode = MODE_PHOTO_SINGLE;
-		else
-			if (this->mode == MODE_PHOTO_SINGLE) this->mode = MODE_VIDEO;
+  idle();
+  signal(ACTION_OR_MODE_HIGH_MICROS, ACTION_PERIODS);
+  idle();
 }
 
-FCOEV2_mode_status_enum FCOEV2::getCurrentMode()
+void
+FCOEV2::switchToNextMode()
 {
-	return this->mode;
+  idle();
+  signal(ACTION_OR_MODE_HIGH_MICROS, CHANGE_MODE_PERIODS);
+  idle();
+  if (this->mode == MODE_VIDEO)
+    this->mode = MODE_PHOTO_SERIAL;
+  else if (this->mode == MODE_PHOTO_SERIAL)
+    this->mode = MODE_PHOTO_SINGLE;
+  else if (this->mode == MODE_PHOTO_SINGLE)
+    this->mode = MODE_VIDEO;
+}
+
+FCOEV2_mode_status_enum
+FCOEV2::getCurrentMode()
+{
+  return this->mode;
 }

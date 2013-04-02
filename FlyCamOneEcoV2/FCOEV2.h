@@ -1,14 +1,14 @@
 /*
-* Copyright (c) 2013 Sebastien Jean.
-* 
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the GNU Lesser Public License v3.0
-* which accompanies this distribution, and is available at
-* http://www.gnu.org/licenses/lgpl-3.0.html
-* 
-* Contributors:
-*     Sebastien Jean - initial API and implementation
-*/
+ * Copyright (c) 2013 Sebastien Jean.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3.0
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * Contributors:
+ *     Sebastien Jean - initial API and implementation
+ */
 
 #ifndef FCOEV2_h
 #define FCOEV2_h
@@ -45,64 +45,77 @@
  */
 #define ACTION_OR_MODE_HIGH_MICROS 2000
 
-typedef enum {
-	MODE_VIDEO = 0,     //!< Video mode
-	MODE_PHOTO_SERIAL = 1,     //!< Serial photo mode
-	MODE_PHOTO_SINGLE = 2     //!< Single photo mode
+typedef enum
+{
+  MODE_VIDEO = 0,     //!< Video mode
+  MODE_PHOTO_SERIAL = 1,     //!< Serial photo mode
+  MODE_PHOTO_SINGLE = 2     //!< Single photo mode
 } FCOEV2_mode_status_enum;
 
 /**
  * A FCOEV2 camera, attached to a given digital output.
  */
-class FCOEV2 {
+class FCOEV2
+{
 private:
-	// per object data
-	/**
-	 * Current mode
-	 */
-	FCOEV2_mode_status_enum mode;
+  // per object data
+  /**
+   * Current mode
+   */
+  FCOEV2_mode_status_enum mode;
 
-	/**
-	 * Pin used as output for PWM signal
-	 */
-	uint8_t pwmPin;
+  /**
+   * Pin used as output for PWM signal
+   */
+  uint8_t pwmPin;
 
 private:
-	// private methods
+  // private methods
 
-	/**
-	 * Sending idle signal.
-	 */
-	void idle();
+  /**
+   * Sending idle signal.
+   */
+  void
+  idle();
 
-	/**
-	 * Sending a custom signal, corresponding to a given pulse width repeated a given time.
-	 * @param pulseWidthMicros the pulse width in microseconds
-	 * @param periods the number of periods to generate
-	 */
-	void signal(uint16_t pulseWidthMicros, uint8_t periods);
+  /**
+   * Sending a custom signal, corresponding to a given pulse width repeated a given time.
+   * @param pulseWidthMicros the pulse width in microseconds
+   * @param periods the number of periods to generate
+   */
+  void
+  signal(uint16_t pulseWidthMicros, uint8_t periods);
 
 public:
-	// public methods
-	/**
-	 * Creates a new FCOEV2 instance, using digital IO <tt>pwmPin</tt> for PWM output.
-	 * @param pwmPin digital IO where FCOEV2 is attached
-	 */
-	FCOEV2(uint8_t pwmPin);
+  // public methods
+  /**
+   * Creates a new FCOEV2 instance, using digital IO <tt>pwmPin</tt> for PWM output.
+   * @param pwmPin digital IO where FCOEV2 is attached
+   */
+  FCOEV2(uint8_t pwmPin);
 
-	/**
-	 * Toggles (on/off) the action associated to current mode.
-	 */
-	void toggleAction();
+  /**
+    * Inits FCOEV2 instance state (mode reset to MODE_VIDEO)
+    */
+   void
+   init();
 
-	/**
-	 * Switches to next operating mode.
-	 */
-	void switchToNextMode();
+  /**
+   * Toggles (on/off) the action associated to current mode.
+   */
+  void
+  toggleAction();
 
-	/**
-	 * Returns the current operating mode.
-	 */
-	FCOEV2_mode_status_enum getCurrentMode();
+  /**
+   * Switches to next operating mode.
+   */
+  void
+  switchToNextMode();
+
+  /**
+   * Returns the current operating mode.
+   */
+  FCOEV2_mode_status_enum
+  getCurrentMode();
 };
 #endif
