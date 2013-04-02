@@ -16,13 +16,13 @@
 FCOEV2::FCOEV2(uint8_t pwmPin)
 {
   this->pwmPin = pwmPin;
-  this->init();
+  pinMode(this->pwmPin, OUTPUT);
+  this->resetMode();
 }
 
 void
-FCOEV2::init()
+FCOEV2::resetMode()
 {
-  pinMode(this->pwmPin, OUTPUT);
   this->mode = MODE_VIDEO;
 }
 
@@ -70,6 +70,16 @@ FCOEV2::switchToNextMode()
     this->mode = MODE_PHOTO_SINGLE;
   else if (this->mode == MODE_PHOTO_SINGLE)
     this->mode = MODE_VIDEO;
+  delay(SWITCH_MODE_PAUSE_MILLIS);
+}
+
+void
+FCOEV2::switchToMode(FCOEV2_mode_status_enum mode)
+{
+  for (int i = 0; i < ((mode - this->mode) % 3); i++)
+    {
+      this->switchToNextMode();
+    }
 }
 
 FCOEV2_mode_status_enum

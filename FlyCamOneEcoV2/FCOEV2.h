@@ -16,6 +16,12 @@
 #include <inttypes.h>
 
 /**
+ * Milliseconds to wait after calling <tt>switchToNextMode</tt> in order to be sure that
+ * camera has correctly process the order
+ */
+#define SWITCH_MODE_PAUSE_MILLIS 1000
+
+/**
  * Number of periods (20ms) of IDLE signal.
  */
 #define IDLE_PERIODS 25
@@ -95,10 +101,10 @@ public:
   FCOEV2(uint8_t pwmPin);
 
   /**
-    * Inits FCOEV2 instance state (mode reset to MODE_VIDEO)
-    */
-   void
-   init();
+   * Resets FCOEV2 instance mode to MODE_VIDEO
+   */
+  void
+  resetMode();
 
   /**
    * Toggles (on/off) the action associated to current mode.
@@ -111,6 +117,13 @@ public:
    */
   void
   switchToNextMode();
+
+  /**
+   * Switches to given operating mode.
+   * @param mode mode to switch to
+   */
+  void
+  switchToMode(FCOEV2_mode_status_enum mode);
 
   /**
    * Returns the current operating mode.
