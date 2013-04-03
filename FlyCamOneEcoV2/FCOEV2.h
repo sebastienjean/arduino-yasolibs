@@ -22,6 +22,12 @@
 #define SWITCH_MODE_PAUSE_MILLIS 1000
 
 /**
+ * Milliseconds to wait after calling <tt>switchOn</tt> in order to be sure that
+ * camera has correctly process the order
+ */
+#define SWITCH_ON_PAUSE_MILLIS 10000
+
+/**
  * Number of periods (20ms) of IDLE signal.
  */
 #define IDLE_PERIODS 25
@@ -51,6 +57,11 @@
  */
 #define ACTION_OR_MODE_HIGH_MICROS 2000
 
+/**
+ * Initial value for PWR pin when no power supply conrtol is used.
+ */
+#define NO_PWR_PIN 255
+
 typedef enum
 {
   MODE_VIDEO = 0,     //!< Video mode
@@ -71,14 +82,24 @@ private:
   FCOEV2_mode_status_enum mode;
 
   /**
-   * Running status
+   * Running status (action started/ended)
    */
   boolean running;
+
+  /**
+   * Power status (on/off)
+   */
+  boolean on;
 
   /**
    * Pin used as output for PWM signal
    */
   uint8_t pwmPin;
+
+  /**
+   * Pin used as output for power supply control (on/off)
+   */
+  uint8_t pwrPin;
 
 private:
   // private methods
@@ -106,6 +127,14 @@ public:
   FCOEV2(uint8_t pwmPin);
 
   /**
+   * Creates a new FCOEV2 instance, using digital IO <tt>pwmPin</tt> for PWM output
+   * and digital IO <tt>pwrPin</tt> for PWR output.
+   * @param pwmPin digital IO where FCOEV2 PWM is attached
+   * @param pwmPin digital IO where FCOEV2 PWR is attached
+   */
+  FCOEV2(uint8_t pwmPin, uint8_t pwrPin);
+
+  /**
    * Resets FCOEV2 instance mode to MODE_VIDEO
    */
   void
@@ -131,6 +160,18 @@ public:
   switchToMode(FCOEV2_mode_status_enum mode);
 
   /**
+   * Switches camera on.
+   */
+  void
+  switchOn();
+
+  /**
+   * Switches camera off.
+   */
+  void
+  switchOff();
+
+  /**
    * Returns the current operating mode.
    */
   FCOEV2_mode_status_enum
@@ -144,5 +185,13 @@ public:
    */
   boolean
   getRunningStatus();
+
+  /**
+   * Returns on/off status
+   *
+   * @return <tt>true</tt> if camera is on
+   */
+  boolean
+  isOn();
 };
 #endif

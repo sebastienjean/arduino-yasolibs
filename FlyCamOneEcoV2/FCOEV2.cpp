@@ -16,7 +16,21 @@
 FCOEV2::FCOEV2(uint8_t pwmPin)
 {
   this->pwmPin = pwmPin;
+  this->pwrPin = NO_PWR_PIN;
   pinMode(this->pwmPin, OUTPUT);
+  this->on = true;
+  this->resetMode();
+}
+
+FCOEV2::FCOEV2(uint8_t pwmPin, uint8_t pwrPin)
+{
+  this->pwmPin = pwmPin;
+  this->pwrPin = pwrPin;
+  pinMode(this->pwmPin, OUTPUT);
+  pinMode(this->pwrPin, OUTPUT);
+  // Camera is off
+  digitalWrite(this->pwrPin, LOW);
+  this->on = false;
   this->resetMode();
 }
 
@@ -84,6 +98,29 @@ FCOEV2::switchToMode(FCOEV2_mode_status_enum mode)
     }
 }
 
+void
+FCOEV2::switchOn()
+{
+  if (this->pwrPin != NO_PWR_PIN)
+    {
+      digitalWrite(this->pwrPin, HIGH);
+      delay(SWITCH_ON_PAUSE_MILLIS);
+      this->on = true;
+      resetMode();
+    }
+}
+
+void
+FCOEV2::switchOff()
+{
+  if (this->pwrPin != NO_PWR_PIN)
+    {
+      digitalWrite(this->pwrPin, LOW);
+      this->on = false;
+      resetMode();
+    }
+}
+
 FCOEV2_mode_status_enum
 FCOEV2::getCurrentMode()
 {
@@ -94,5 +131,11 @@ boolean
 FCOEV2::getRunningStatus()
 {
   return this->running;
+}
+
+boolean
+FCOEV2::isOn()
+{
+  return this->on;
 }
 
