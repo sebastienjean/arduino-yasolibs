@@ -24,6 +24,7 @@ void
 FCOEV2::resetMode()
 {
   this->mode = MODE_VIDEO;
+  this->running = false;
 }
 
 void
@@ -56,6 +57,7 @@ FCOEV2::toggleAction()
   idle();
   signal(ACTION_OR_MODE_HIGH_MICROS, ACTION_PERIODS);
   idle();
+  if (this->mode != MODE_PHOTO_SINGLE) this->running = ! this->running;
 }
 
 void
@@ -87,3 +89,10 @@ FCOEV2::getCurrentMode()
 {
   return this->mode;
 }
+
+boolean
+FCOEV2::getRunningStatus()
+{
+  return this->running;
+}
+

@@ -71,6 +71,11 @@ private:
   FCOEV2_mode_status_enum mode;
 
   /**
+   * Running status
+   */
+  boolean running;
+
+  /**
    * Pin used as output for PWM signal
    */
   uint8_t pwmPin;
@@ -130,5 +135,14 @@ public:
    */
   FCOEV2_mode_status_enum
   getCurrentMode();
+
+  /**
+   * Returns running status, i.e. if action has been toggled on
+   * (this applies only to MODE_VIDEO and MODE_PHOTO_SERIAL).
+   *
+   * @return <tt>true</tt> if action is in progress
+   */
+  boolean
+  getRunningStatus();
 };
 #endif
