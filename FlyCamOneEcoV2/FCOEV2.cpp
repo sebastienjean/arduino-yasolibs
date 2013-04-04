@@ -92,7 +92,15 @@ FCOEV2::switchToNextMode()
 void
 FCOEV2::switchToMode(FCOEV2_mode_status_enum mode)
 {
-  for (int i = 0; i < ((mode - this->mode) % 3); i++)
+  // Could not figure out problem with modulus, so wrote it like that.
+  int loops = 0;
+  if (this->mode == mode) return;
+
+  if (this->mode < mode)
+      loops = mode - this->mode;
+  else
+      loops = (mode + 3) - this->mode;
+  for (; loops > 0; loops--)
     {
       this->switchToNextMode();
     }

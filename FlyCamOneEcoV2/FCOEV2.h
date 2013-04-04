@@ -30,7 +30,7 @@
 /**
  * Number of periods (20ms) of IDLE signal.
  */
-#define IDLE_PERIODS 25
+#define IDLE_PERIODS 100
 
 /**
  * Number of periods (20ms) of ACTION signal.
