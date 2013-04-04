@@ -16,8 +16,8 @@
  * This test application supposes the FCOEV2 to be attached on pin 4 and to be on.
  * Then it loops endlessly on:
  * 1 - triggering a recording (when on, the first mode is VIDEO) for 5 seconds
- * 2 - switching to PHOTO_SERIAL mode and taking photos every 4s for 30s
- * 3 - switching to PHOTO_SINGLE mode and taking photos every second for 30s
+ * 2 - switching to PHOTO_SINGLE mode and taking 5 photos pausing 1s between each
+ * 3 - switching to PHOTO_SERIAL mode and taking photos every 4s for 15s
  *
  * @author S.Jean
  * @date feb. 2013
@@ -37,7 +37,8 @@ FCOEV2 fcoev2(4);
 void
 setup()
 {
-  // Nothing special to do here !
+  // Waiting for camera to power up properly
+  delay(SWITCH_ON_PAUSE_MILLIS);
 }
 
 /**
@@ -48,6 +49,9 @@ loop() // run over and over
 {
   unsigned long startTimeMillis;
 
+  // Switching to Video Mode
+  // (the first time loop is called, it does nothing since it is the initial mode)
+  fcoev2.switchToMode(MODE_VIDEO);
   // Recording for 5 seconds
   fcoev2.toggleAction();
   delay(5000);
@@ -55,30 +59,28 @@ loop() // run over and over
 
   delay(1000);
 
-  // Switching to Serial Photo Mode
-  fcoev2.switchToNextMode();
+  // Switching to Single Photo Mode
+  fcoev2.switchToMode(MODE_PHOTO_SINGLE);
+  // Taking 5 photos periodically, pausing 1s between each
+  for (int i = 0; i < 5; i++)
+    {
+      delay(1000);
+      fcoev2.toggleAction();
+    }
 
-  // Taking photo every 4 seconds for 30s
+  // Switching to Serial Photo Mode
+  fcoev2.switchToMode(MODE_PHOTO_SERIAL);
+  // Taking photo every 4 seconds for 15s
   fcoev2.toggleAction();
   startTimeMillis = millis();
   while (1)
     {
       delay(1000);
-      if (((millis() - startTimeMillis) / 1000) > 30)
+      if (((millis() - startTimeMillis) / 1000) > 15)
         break;
     }
+  // Stopping taking photos
   fcoev2.toggleAction();
-
-  // Switching to Serial Photo Mode
-  fcoev2.switchToNextMode();
-  // Taking photo every second for 30s
-  for (int i = 0; i < 30; i++)
-    {
-      delay(1000);
-      fcoev2.toggleAction();
-    }
-  // Switching to Serial Photo Mode
-  fcoev2.switchToNextMode();
 }
 
 /**

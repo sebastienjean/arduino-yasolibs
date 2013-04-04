@@ -19,6 +19,7 @@
  * Milliseconds to wait after calling <tt>switchToNextMode</tt> in order to be sure that
  * camera has correctly process the order
  */
+// TODO try to decrease this value to the least working one
 #define SWITCH_MODE_PAUSE_MILLIS 1000
 
 /**
@@ -30,6 +31,7 @@
 /**
  * Number of periods (20ms) of IDLE signal.
  */
+// TODO try to decrease this value to the least working one
 #define IDLE_PERIODS 100
 
 /**
@@ -40,6 +42,7 @@
 /**
  * Number of periods (20ms) of CHANGE_MODE signal.
  */
+// TODO try to decrease this value to the least working one
 #define CHANGE_MODE_PERIODS 200
 
 /**
@@ -58,7 +61,7 @@
 #define ACTION_OR_MODE_HIGH_MICROS 2000
 
 /**
- * Initial value for PWR pin when no power supply conrtol is used.
+ * Initial value for PWR pin when no power supply control is used.
  */
 #define NO_PWR_PIN 255
 
