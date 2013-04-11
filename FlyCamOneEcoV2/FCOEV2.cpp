@@ -90,7 +90,7 @@ FCOEV2::switchToNextMode()
 }
 
 void
-FCOEV2::switchToMode(FCOEV2_mode_status_enum mode)
+FCOEV2::switchToMode(uint8_t mode)
 {
   // Could not figure out problem with modulus, so wrote it like that.
   int loops = 0;
@@ -129,7 +129,7 @@ FCOEV2::switchOff()
     }
 }
 
-FCOEV2_mode_status_enum
+uint8_t
 FCOEV2::getCurrentMode()
 {
   return this->mode;
@@ -138,12 +138,12 @@ FCOEV2::getCurrentMode()
 boolean
 FCOEV2::getRunningStatus()
 {
-  return this->running;
+  return (this->running == CAMERA_RUNNING);
 }
 
 boolean
 FCOEV2::isOn()
 {
-  return this->on;
+  return (this->on == CAMERA_ON);
 }
 

@@ -65,12 +65,40 @@
  */
 #define NO_PWR_PIN 255
 
-typedef enum
-{
-  MODE_VIDEO = 0,     //!< Video mode
-  MODE_PHOTO_SERIAL = 1,     //!< Serial photo mode
-  MODE_PHOTO_SINGLE = 2     //!< Single photo mode
-} FCOEV2_mode_status_enum;
+/**
+ * Camera running/idle status when running
+ */
+#define CAMERA_RUNNING 1
+
+/**
+ * Camera running/idle status when idle
+ */
+#define CAMERA_IDLE 0
+
+/**
+ * Camera on/off status when on
+ */
+#define CAMERA_ON 1
+
+/**
+ * Camera on/off status when off
+ */
+#define CAMERA_OFF 0
+
+/**
+ * Camera mode status when on video mode
+ */
+#define MODE_VIDEO 0
+
+/**
+ * Camera mode status when on photo serial mode
+ */
+#define MODE_PHOTO_SERIAL 1
+
+/**
+ * Camera mode status when on photo single mode
+ */
+#define MODE_PHOTO_SINGLE 2
 
 /**
  * A FCOEV2 camera, attached to a given digital output.
@@ -82,17 +110,17 @@ private:
   /**
    * Current mode
    */
-  FCOEV2_mode_status_enum mode;
+  uint8_t mode;
 
   /**
    * Running status (action started/ended)
    */
-  boolean running;
+  uint8_t running;
 
   /**
    * Power status (on/off)
    */
-  boolean on;
+  uint8_t on;
 
   /**
    * Pin used as output for PWM signal
@@ -160,7 +188,7 @@ public:
    * @param mode mode to switch to
    */
   void
-  switchToMode(FCOEV2_mode_status_enum mode);
+  switchToMode(uint8_t mode);
 
   /**
    * Switches camera on.
@@ -177,7 +205,7 @@ public:
   /**
    * Returns the current operating mode.
    */
-  FCOEV2_mode_status_enum
+  uint8_t
   getCurrentMode();
 
   /**
