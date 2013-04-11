@@ -179,12 +179,17 @@ public:
 
   /**
    * Switches to next operating mode.
+   * N.B. after calling this method, an explicit pause of SWITCH_MODE_PAUSE_MILLIS
+   * has to be done using delay, in order to ensure that camera has properly processed
+   * the order.
    */
   void
   switchToNextMode();
 
   /**
    * Switches to given operating mode.
+   * N.B. An explicit pause of SWITCH_MODE_PAUSE_MILLIS
+   * is done using delay after each internal call to switchToNextMode
    * @param mode mode to switch to
    */
   void
@@ -192,6 +197,8 @@ public:
 
   /**
    * Switches camera on.
+   * N.B. after calling this method, an explicit pause of SWITCH_ON_PAUSE_MILLIS
+   * has to be done using delay, in order to ensure that camera has powered up properly
    */
   void
   switchOn();

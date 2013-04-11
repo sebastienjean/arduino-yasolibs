@@ -86,7 +86,7 @@ FCOEV2::switchToNextMode()
     this->mode = MODE_PHOTO_SINGLE;
   else if (this->mode == MODE_PHOTO_SINGLE)
     this->mode = MODE_VIDEO;
-  delay(SWITCH_MODE_PAUSE_MILLIS);
+
 }
 
 void
@@ -103,6 +103,7 @@ FCOEV2::switchToMode(uint8_t mode)
   for (; loops > 0; loops--)
     {
       this->switchToNextMode();
+      delay(SWITCH_MODE_PAUSE_MILLIS);
     }
 }
 
@@ -112,7 +113,6 @@ FCOEV2::switchOn()
   if (this->pwrPin != NO_PWR_PIN)
     {
       digitalWrite(this->pwrPin, HIGH);
-      delay(SWITCH_ON_PAUSE_MILLIS);
       this->on = true;
       resetMode();
     }
