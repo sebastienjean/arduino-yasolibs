@@ -71,7 +71,8 @@ FCOEV2::toggleAction()
   idle();
   signal(ACTION_OR_MODE_HIGH_MICROS, ACTION_PERIODS);
   idle();
-  if (this->mode != MODE_PHOTO_SINGLE) this->running = ! this->running;
+  if (this->mode != MODE_PHOTO_SINGLE)
+    this->running = !this->running;
 }
 
 void
@@ -92,19 +93,33 @@ FCOEV2::switchToNextMode()
 void
 FCOEV2::switchToMode(uint8_t mode)
 {
-  // Could not figure out problem with modulus, so wrote it like that.
   int loops = 0;
-  if (this->mode == mode) return;
 
-  if (this->mode < mode)
-      loops = mode - this->mode;
-  else
-      loops = (mode + 3) - this->mode;
-  for (; loops > 0; loops--)
+  switch (mode)
     {
-      this->switchToNextMode();
-      delay(SWITCH_MODE_PAUSE_MILLIS);
+  case MODE_VIDEO:
+  case MODE_PHOTO_SERIAL:
+  case MODE_PHOTO_SINGLE:
+    {
+    if (this->mode == mode)
+      return;
+
+    if (this->mode < mode)
+      loops = mode - this->mode;
+    else
+      loops = (mode + 3) - this->mode;
+    for (; loops > 0; loops--)
+      {
+        this->switchToNextMode();
+        delay(SWITCH_MODE_PAUSE_MILLIS);
+      }
+    break;
     }
+  default:
+    return;
+
+    }
+  // Could not figure out problem with modulus, so wrote it like that.
 }
 
 void

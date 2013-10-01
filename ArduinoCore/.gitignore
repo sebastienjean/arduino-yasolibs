@@ -5,3 +5,6 @@
 /Nano328P/scrCore/*
 /Nano328P/makefile
 /Nano328P/*.mk
+/Mega2560
+/Uno
+/Nano328P

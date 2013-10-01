@@ -20,13 +20,13 @@
  * camera has correctly process the order
  */
 // TODO try to decrease this value to the least working one
-#define SWITCH_MODE_PAUSE_MILLIS 1000
+#define SWITCH_MODE_PAUSE_MILLIS 1500
 
 /**
  * Milliseconds to wait after calling <tt>switchOn</tt> in order to be sure that
  * camera has correctly process the order
  */
-#define SWITCH_ON_PAUSE_MILLIS 10000
+#define SWITCH_ON_PAUSE_MILLIS 15000
 
 /**
  * Number of periods (20ms) of IDLE signal.
@@ -43,7 +43,7 @@
  * Number of periods (20ms) of CHANGE_MODE signal.
  */
 // TODO try to decrease this value to the least working one
-#define CHANGE_MODE_PERIODS 200
+#define CHANGE_MODE_PERIODS 150
 
 /**
  * Width, in microseconds, of IDLE pulse.

@@ -101,6 +101,9 @@ FSK600BaudTA900TB1500Mod::write(uint8_t c)
 void
 FSK600BaudTA900TB1500Mod::modulateBytes(char *bytes, int length)
 {
+  for (int cpt = 0; cpt < 20; cpt++)
+    generateTone(HIGH);
+
   for (int cpt = 0; cpt < length; cpt++)
     this->write(bytes[cpt]);
   this->off();
