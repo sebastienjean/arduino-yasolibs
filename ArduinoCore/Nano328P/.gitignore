@@ -1,2 +1,4 @@
 /srcCore
-/.DS_Store
+/makefile
+/objects.mk
+/sources.mk
