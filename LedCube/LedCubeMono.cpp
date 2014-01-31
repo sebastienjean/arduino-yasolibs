@@ -13,19 +13,33 @@
 #include <Arduino.h> 
 #include <LedCubeMono.h>
 
-#define ZERO_FILLED_REGISTER (uint16_t) 0b0000000000000000
+/**
+ * Alias for the size of shift registers
+ */
 #define REGISTER_SIZE 16
 
+/**
+ * Alias for default frame rate (FPS)
+ */
+#define DEFAULT_FRAME_RATE 50
+
+/**
+ * Alias for a blank 16 bits mask
+ */
+#define ZERO_FILLED_REGISTER (uint16_t) 0b0000000000000000
+
+/**
+ * Macro for layer selection mask (design-related)
+ */
 #define LAYER_MASK(l) (uint16_t) (0b0000000010000000 >> l)
 
-LedCubeMono::LedCubeMono(uint8_t size, uint8_t sdiPin, uint8_t clockPin,
-    uint8_t latchPin)
+void
+LedCubeMono::initialize(uint8_t numberOfLayers, uint8_t sdiPin, uint8_t clockPin, uint8_t latchPin)
 {
-  this->size = size;
+  this->numberOfLayers = numberOfLayers;
 
-  this->layerStillNessMillis = 1000 / (25 * this->size * 2);
-  this->numberOfregistersUsedForLayer = ((this->size * this->size) / REGISTER_SIZE)+1;
-  if (((this->size * this->size) % REGISTER_SIZE) == 0) this->numberOfregistersUsedForLayer--;
+  this->numberOfRegistersUsedForEachLayer = ((this->numberOfLayers * this->numberOfLayers) / REGISTER_SIZE)+1;
+  if (((this->numberOfLayers * this->numberOfLayers) % REGISTER_SIZE) == 0) this->numberOfRegistersUsedForEachLayer--;
 
   this->sdiPin = sdiPin;
   pinMode(this->sdiPin, OUTPUT);
@@ -40,23 +54,28 @@ LedCubeMono::LedCubeMono(uint8_t size, uint8_t sdiPin, uint8_t clockPin,
   digitalWrite(this->latchPin, LOW);
 }
 
-/**
- * Off
- *
- */
+LedCubeMono::LedCubeMono(uint8_t numberOfLayers, uint8_t sdiPin, uint8_t clockPin, uint8_t latchPin)
+{
+  this->initialize(numberOfLayers,sdiPin, clockPin, latchPin);
+  this->frameRate = DEFAULT_FRAME_RATE;
+}
+
+LedCubeMono::LedCubeMono(uint8_t numberOfLayers, uint8_t sdiPin, uint8_t clockPin, uint8_t latchPin, uint8_t frameRate)
+{
+  this->initialize(numberOfLayers,sdiPin, clockPin, latchPin);
+  this->frameRate = frameRate;
+  if (1000 / (this->frameRate * this->numberOfLayers) == 0) this->frameRate = (1000 / this->numberOfLayers);
+}
+
 void
 LedCubeMono::off()
 {
   this->push16bitsInRegister(ZERO_FILLED_REGISTER);
-  for (int registerNumber = 0; registerNumber < this->numberOfregistersUsedForLayer; registerNumber++)
+  for (int registerNumber = 0; registerNumber < this->numberOfRegistersUsedForEachLayer; registerNumber++)
     this->push16bitsInRegister(ZERO_FILLED_REGISTER);
   this->latchRegisters();
 }
 
-/**
- * Latch
- *
- */
 void
 LedCubeMono::latchRegisters()
 {
@@ -83,7 +102,7 @@ void
 LedCubeMono::drawLayer(uint16_t layerMask, uint16_t *ledsMask)
 {
   this->push16bitsInRegister(layerMask);
-  for (int registerNumber = 0; registerNumber < this->numberOfregistersUsedForLayer; registerNumber++)
+  for (int registerNumber = 0; registerNumber < this->numberOfRegistersUsedForEachLayer; registerNumber++)
     this->push16bitsInRegister(ledsMask[registerNumber]);
   this->latchRegisters();
 }
@@ -91,10 +110,10 @@ LedCubeMono::drawLayer(uint16_t layerMask, uint16_t *ledsMask)
 void
 LedCubeMono::drawFrame(uint16_t *frameMask)
 {
-  for (int layer = 0; layer < this->size; layer++)
+  for (int layer = 0; layer < this->numberOfLayers; layer++)
     {
-      this->drawLayer(LAYER_MASK(layer), (uint16_t *) (frameMask+ (layer* this->numberOfregistersUsedForLayer)));
-      delay(this->layerStillNessMillis);
+      this->drawLayer(LAYER_MASK(layer), (uint16_t *) (frameMask+ (layer* this->numberOfRegistersUsedForEachLayer)));
+      delay(1000 / (this->frameRate * this->numberOfLayers));
     }
 }
 

@@ -17,20 +17,44 @@
 #include <Stream.h>
 
 /**
- * Driver for Mono LED cube
+ * Driver for mono-colored LED cube, suitable from 1x1x1 (!) to 16x16x16 cubes.
+ * The cube is driven by a chain of 16-bits shift registers, the last of them allowing to select
+ * the active layer.
+ * It is supposed that if the cube is driven by n+1 shift registers, there is no register
+ * between the first n ones that is associated to more than one layer.
+ * Below is illustrated the example of a 4x4x4 LED cube, that needs only 2 16-bits shift
+ * registers :
+ *  - the first allows to select which LED is lit on the layer (4x4 = 16 LEDs by layer)
+ *  - the second allows to select which layer is active (4 layers)
+ *
+ *                ------        --------
+ *   data in ----| leds |------| layers |
+ *                ------        --------
+ *                 |..|           |..|
+ *               (to leds)     (to layers)
+ *
  */
-
 class LedCubeMono
 {
 
 private:
-  // per object data
 
-  uint8_t size;
+  // fields
 
-  uint8_t layerStillNessMillis;
+  /**
+   * Number of layers
+   */
+  uint8_t numberOfLayers;
 
-  uint8_t numberOfregistersUsedForLayer;
+  /**
+   * Frame rate (in FPS)
+   */
+  uint8_t frameRate;
+
+  /**
+   * Number of registers used for each layer
+   */
+  uint8_t numberOfRegistersUsedForEachLayer;
 
   /**
    * Pin used for serial data input
@@ -43,11 +67,21 @@ private:
   uint8_t clockPin;
 
   /**
-   * Pin used for clock
+   * Pin used for latch
    */
   uint8_t latchPin;
 
-  // private methods
+  // methods
+
+  /**
+   * LED cube driver initialization (used by constructors, initializes everything but the frame rate
+   * @param numberOfLayers number of layers
+   * @param dataInPin serial data input pin
+   * @param clockPin clock pin
+   * @param latchPin latch pin
+   */
+  void
+  initialize(uint8_t numberOfLayers, uint8_t sdiPin, uint8_t clockPin, uint8_t latchPin);
 
   /**
    * Latch all registers simultaneously
@@ -56,23 +90,33 @@ private:
   latchRegisters();
 
   /**
-   * Push 16 bits in registers
-   * @param bits
+   * Push 16 bits in shift registers chain
+   * @param bits the 16 bits to push, starting by the least significant one
    */
   void
   push16bitsInRegister(uint16_t bits);
 
 public:
 
-  // public methods
+  // methods
   /**
-   * Construct a new LED cube driver, with given pins
-   * @param dataInPin
-   * @param clockPin
-   * @param latchPin
+   * Construct a new LED cube driver, with given control pins and a default frame rate (50 FPS, to avoid flickering)
+   * @param numberOfLayers number of layers
+   * @param dataInPin serial data input pin
+   * @param clockPin clock pin
+   * @param latchPin latch pin
    */
-  LedCubeMono(uint8_t size, uint8_t dataInPin, uint8_t clockPin,
-      uint8_t latchPin);
+  LedCubeMono(uint8_t numberOfLayers, uint8_t dataInPin, uint8_t clockPin, uint8_t latchPin);
+
+  /**
+   * Construct a new LED cube driver, with given control pins and a given frame rate
+   * @param numberOfLayers number of layers
+   * @param dataInPin serial data input pin
+   * @param clockPin clock pin
+   * @param latchPin latch pin
+   * @param frameRate frame rate (in FPS)
+   */
+  LedCubeMono(uint8_t numberOfLayers, uint8_t dataInPin, uint8_t clockPin, uint8_t latchPin, uint8_t frameRate);
 
   /**
    * Turn LED cube off
@@ -83,7 +127,7 @@ public:
   /**
    * Draw a layer
    * @param layerMask the mask of the layer to draw
-   * @param ledsMask the led pattern to draw on this layer
+   * @param ledsMask the LED pattern to draw on this layer
    */
   void
   drawLayer(uint16_t layerMask, uint16_t *ledsMask);

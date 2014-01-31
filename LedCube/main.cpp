@@ -15,11 +15,9 @@
  * frames on serial line at 4800 bauds. Each frame is supposed to be sent as raw byte sequence
  * (e.g. for a 4x4x4 cube, 8 bytes are sent, each couple of bytes representing a layer, ordered from
  * bottom to top). Each frame is acknowledged with a single byte, and displayed once
- * (with a supposed framerate of 50 FPS). If no other frame is received, the current frame is displayed
+ * (with a default frame rate of 50 FPS). If no other frame is received, the current frame is displayed
  * again.
  *
- * @author S.jean
- * @date dec. 2013
  */
 #include <Arduino.h>
 #include <LedCubeMono.h>
@@ -39,17 +37,26 @@
  */
 #define LATCH_PIN 3
 
+/**
+ *  ACK opcode
+ */
 #define THE_ANSWER (uint8_t) 0x42
 
-#define BAUD_RATE 4800
+/**
+ *  Serial baud rate
+ */
+#define SERIAL_BAUD_RATE 4800
 
 #define FRAME_BYTE_SIZE 8
 
 /**
- * FSK modulator instance
+ * LED cube instance
  */
 LedCubeMono cube(4, SDI_PIN, CLOCK_PIN, LATCH_PIN);
 
+/**
+ * Image buffer (64 bits as an array of 4 uint16_t)
+ */
 uint16_t imageBuffer[] =
   { 0b00000000000000000, 0b00000000000000000, 0b00000000000000000,
       0b00000000000000000 };
@@ -60,7 +67,7 @@ uint16_t imageBuffer[] =
 void
 setup()
 {
-  Serial.begin(BAUD_RATE);
+  Serial.begin(SERIAL_BAUD_RATE);
   cube.off();
   Serial.write(THE_ANSWER);
 }
