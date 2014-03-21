@@ -385,9 +385,11 @@
 		<configuration configurationName="Nano328P">
 			<resource resourceType="PROJECT" workspacePath="/ArduinoCore"/>
 		</configuration>
+		<configuration configurationName="Duemilanove328P"/>
 		<configuration configurationName="Mega2560">
 			<resource resourceType="PROJECT" workspacePath="/ArduinoCore"/>
 		</configuration>
+		<configuration configurationName="Uno"/>
 		<configuration configurationName="Duemillanove328P">
 			<resource resourceType="PROJECT" workspacePath="/ArduinoCore"/>
 		</configuration>

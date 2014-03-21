@@ -6,3 +6,7 @@
 /Nano328P/makefile
 /Nano328P/*.mk
 
+/Nano328P
+/Duemilanove328P
+/Mega2560
+/Uno
