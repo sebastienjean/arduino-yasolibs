@@ -18,16 +18,9 @@
 #include <AnalogSensors.h>
 #include <AnalogSensor.h>
 
-AnalogSensors::AnalogSensors(AnalogSensor* analogSensors[], int analogSensorsAmount)
+AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, int analogSensorsAmount)
 {
-  for (int i = 0; (i < analogSensorsAmount) && (i < NUM_ANALOG_INPUTS); i++)
-    {
-      this->analogSensors[i] = analogSensors[i];
-    }
-  if (analogSensorsAmount > NUM_ANALOG_INPUTS)
-    {
-      analogSensorsAmount = NUM_ANALOG_INPUTS;
-    }
+  this->analogSensors = analogSensors;
   this->analogSensorsAmount = analogSensorsAmount;
 }
 
@@ -35,9 +28,8 @@ int
 AnalogSensors::read(int sensorNumber)
 {
   if ((sensorNumber < 0) || (sensorNumber > getAmount()))
-    {
       return -1;
-    }
+
   return analogSensors[sensorNumber - 1]->read();
 }
 

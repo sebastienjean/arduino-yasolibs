@@ -33,7 +33,7 @@ private:
   /**
    * Sensors (pointers) contained in this set
    */
-  AnalogSensor* analogSensors[NUM_ANALOG_INPUTS];
+  AnalogSensor** analogSensors;
 
   /**
    * Number of sensors in this set
@@ -48,7 +48,7 @@ public:
    * @param analogSensors an array containing sensors to add to this set
    * @param analogSensorsAmount the number of sensors to add from <tt>analogSensors</tt>
    */
-  AnalogSensors(AnalogSensor* analogSensors[], int analogSensorsAmount);
+  AnalogSensors(AnalogSensor** analogSensors, int analogSensorsAmount);
 
   /**
    * Reads a given sensor value.
