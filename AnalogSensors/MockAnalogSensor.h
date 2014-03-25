@@ -19,7 +19,7 @@
 
 #include <AnalogSensor.h>
 /**
- * This class allows to handle an analog sensor, attached to a given analog channel (A0 ...)
+ * This class allows to handle mock analog sensors
  */
 class MockAnalogSensor : public AnalogSensor
 {
