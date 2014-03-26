@@ -16,6 +16,7 @@
 #include <Arduino.h>
 #include <SD.h>
 
+#include <Logger.h>
 #include <SDFileLogger.h>
 
 SDFileLogger::SDFileLogger(SDClass *sd, char * filePath)
@@ -35,6 +36,18 @@ SDFileLogger::logMessage(char *message, boolean newLine)
       else
         logFile.print(message);
       logFile.close();
+      return true;
+    }
+  return false;
+}
+
+boolean
+SDFileLogger::logMessage(byte messageBytes[], int amount)
+{
+  File logFile = this->sd->open(this->filePath, FILE_WRITE);
+  if (logFile)
+    {
+      logFile.write((byte *) messageBytes, amount);
       return true;
     }
   return false;

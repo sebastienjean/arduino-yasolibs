@@ -17,13 +17,13 @@
 #ifndef SDFILE_LOGGER_h
 #define SDFILE_LOGGER_h
 
+#include <Logger.h>
 #include <SD.h>
 
 /**
  * This class allows to log raw bytes or text lines on a given file stored on a FAT32 formatted SD card.
- * This class has no constructor but a singleton instance called LOGGER.
  */
-class SDFileLogger
+class SDFileLogger : public Logger
 {
 private:
 
@@ -44,18 +44,13 @@ public:
    *
    * @param path destination file path
    */
-
   SDFileLogger(SDClass *sd, char *path);
 
-  /**
-   * Logs a message, with or without appending new line.
-   *
-   * @param message the string to be logged
-   * @param newLine line termination characters appending (if true)
-   * @return logging success status
-   */
   boolean
   logMessage(char *message, boolean newLine);
+
+  boolean
+  logMessage(byte messageBytes[], int amount);
 
   /**
    * Erases log file content.
@@ -64,6 +59,8 @@ public:
   boolean
   clear(void);
 };
+
+
 
 #endif
 
