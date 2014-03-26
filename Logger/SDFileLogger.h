@@ -14,8 +14,8 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LOGGER_h
-#define LOGGER_h
+#ifndef SDFILE_LOGGER_h
+#define SDFILE_LOGGER_h
 
 #include <SD.h>
 
@@ -23,7 +23,7 @@
  * This class allows to log raw bytes or text lines on a given file stored on a FAT32 formatted SD card.
  * This class has no constructor but a singleton instance called LOGGER.
  */
-class Logger
+class SDFileLogger
 {
 private:
 
@@ -45,7 +45,7 @@ public:
    * @param path destination file path
    */
 
-  Logger(SDClass *sd, char *path);
+  SDFileLogger(SDClass *sd, char *path);
 
   /**
    * Logs a message, with or without appending new line.
@@ -62,7 +62,7 @@ public:
    * @return log file deletion status
    */
   boolean
-  reset(void);
+  clear(void);
 };
 
 #endif

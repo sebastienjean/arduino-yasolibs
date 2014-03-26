@@ -16,16 +16,16 @@
 #include <Arduino.h>
 #include <SD.h>
 
-#include <Logger.h>
+#include <SDFileLogger.h>
 
-Logger::Logger(SDClass *sd, char * filePath)
+SDFileLogger::SDFileLogger(SDClass *sd, char * filePath)
 {
   this->sd = sd;
   this->filePath = filePath;
 }
 
 boolean
-Logger::logMessage(char *message, boolean newLine)
+SDFileLogger::logMessage(char *message, boolean newLine)
 {
   File logFile = this->sd->open(this->filePath, FILE_WRITE);
   if (logFile)
@@ -41,7 +41,7 @@ Logger::logMessage(char *message, boolean newLine)
 }
 
 boolean
-Logger::reset(void)
+SDFileLogger::clear(void)
 {
   return this->sd->remove(this->filePath);
 }
