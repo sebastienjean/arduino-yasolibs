@@ -17,6 +17,8 @@
 #ifndef LOGGER_h
 #define LOGGER_h
 
+#include <SD.h>
+
 /**
  * This class allows to log raw bytes or text lines on a given file stored on a FAT32 formatted SD card.
  * This class has no constructor but a singleton instance called LOGGER.
@@ -30,15 +32,20 @@ private:
    */
   char *filePath;
 
+  /**
+   * SD used to log messages
+   */
+  SDClass *sd;
+
 public:
 
   /**
-   * Initializes logging.
+   * Creates a new logger, for given SD and destination file path
    *
    * @param path destination file path
    */
-  void
-  begin(char *path);
+
+  Logger(SDClass *sd, char *path);
 
   /**
    * Logs a message, with or without appending new line.
@@ -57,11 +64,6 @@ public:
   boolean
   reset(void);
 };
-
-/**
- * Singleton instance
- */
-extern Logger LOGGER;
 
 #endif
 

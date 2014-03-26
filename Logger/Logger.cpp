@@ -18,16 +18,16 @@
 
 #include <Logger.h>
 
-void
-Logger::begin(char * filePath)
+Logger::Logger(SDClass *sd, char * filePath)
 {
+  this->sd = sd;
   this->filePath = filePath;
 }
 
 boolean
 Logger::logMessage(char *message, boolean newLine)
 {
-  File logFile = SD.open(this->filePath, FILE_WRITE);
+  File logFile = this->sd->open(this->filePath, FILE_WRITE);
   if (logFile)
     {
       if (newLine)
@@ -43,7 +43,5 @@ Logger::logMessage(char *message, boolean newLine)
 boolean
 Logger::reset(void)
 {
-  return SD.remove(this->filePath);
+  return this->sd->remove(this->filePath);
 }
-
-Logger LOGGER;
