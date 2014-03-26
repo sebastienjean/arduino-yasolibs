@@ -36,11 +36,9 @@ public:
    * Initializes logging.
    *
    * @param path destination file path
-   * @param sd_CE_Pin SD Card Chip-enabled pin
-   * @return initialization status (see SD.begin())
    */
-  boolean
-  begin(char *path, int sd_CE_Pin);
+  void
+  begin(char *path);
 
   /**
    * Logs a message, with or without appending new line.

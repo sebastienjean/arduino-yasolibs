@@ -18,12 +18,10 @@
 
 #include <Logger.h>
 
-boolean
-Logger::begin(char * filePath, int sd_CS_Pin)
+void
+Logger::begin(char * filePath)
 {
   this->filePath = filePath;
-  pinMode(sd_CS_Pin, OUTPUT);
-  return SD.begin(sd_CS_Pin);
 }
 
 boolean
