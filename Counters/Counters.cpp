@@ -18,7 +18,7 @@
 #include <Counters.h>
 #include <Counter.h>
 
-Counters::Counters(Counter* counters[], int countersAmount)
+Counters::Counters(Counter** counters, int countersAmount)
 {
   this->counters = counters;
   this->countersAmount = countersAmount;
@@ -28,9 +28,8 @@ int
 Counters::read(int counterNumber)
 {
   if ((counterNumber < 0) || (counterNumber > getAmount()))
-    {
-      return -1;
-    }
+    return -1;
+
   return counters[counterNumber - 1]->read();
 }
 
@@ -44,17 +43,13 @@ void
 Counters::reset()
 {
   for (int i = 0; i < countersAmount; i++)
-    {
-      this->counters[i]->reset();
-    }
+    this->counters[i]->reset();
 }
 
 Counter *
 Counters::get(int counterNumber)
 {
   if ((counterNumber < 1) || (counterNumber > countersAmount))
-    {
-      return NULL;
-    }
+    return NULL;
   return this->counters[counterNumber - 1];
 }

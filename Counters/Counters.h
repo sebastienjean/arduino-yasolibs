@@ -47,7 +47,7 @@ public:
    * @param counters an array containing counters to add to this set
    * @param countersAmount the number of counters to add from <tt>counters</tt>
    */
-  Counters(Counter* counters[], int countersAmount);
+  Counters(Counter** counters, int countersAmount);
 
   /**
    * Reads a given counter value.
@@ -75,7 +75,7 @@ public:
   void
   reset();
 
-  /*
+  /**
    * returns a pointer of counter
    * @counterNumber : number of the counter.
    */
