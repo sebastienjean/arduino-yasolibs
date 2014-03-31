@@ -10,7 +10,8 @@
  *     Sebastien Jean - initial API and implementation
  */
 
-#include <Arduino.h> 
+#include <Arduino.h>
+#include <GpsUtil.h>
 #include <GPS2D.h>
 
 void
@@ -156,7 +157,7 @@ GPS2D::readPositioningData(char *nmeaRmcSentenceBuffer)
 }
 
 boolean
-GPS2D::getFix()
+GPS2D::getFix()const
 {
   return m_fixStatus;
 }

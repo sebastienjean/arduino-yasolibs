@@ -10,9 +10,11 @@
  *     Sebastien Jean - initial API and implementation
  */
 
-#include <Arduino.h> 
+#include <Arduino.h>
+#include <GpsUtil.h>
+#include<GPS2D.h>
 #include <GPS3D.h>
-#include <GPS2D.h>
+
 
 void
 GPS3D::initData()
@@ -134,7 +136,13 @@ GPS3D::getHDOP()
 }
 
 double
-GPS3D::getAltitude()
+GPS3D::getAltitude() const
 {
   return m_altitude;
+}
+
+boolean
+GPS3D::getFix(void) const
+{
+	return GPS2D::getFix();
 }

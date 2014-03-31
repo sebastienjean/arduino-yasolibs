@@ -25,6 +25,7 @@
  */
 
 #include <Arduino.h>
+#include <GpsUtil.h>
 #include <GPS.h>
 #include <GPS3D.h>
 

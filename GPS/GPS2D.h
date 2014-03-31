@@ -149,8 +149,8 @@ public:
    * Getter for Fix status
    * @return fix status
    */
-  boolean
-  getFix(void);
+  virtual boolean
+  getFix(void) const;
 
   /**
    * Getter for UTC time of fix, as a valid C string

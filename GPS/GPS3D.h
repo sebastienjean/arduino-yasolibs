@@ -12,7 +12,7 @@
 
 #ifndef GPS3D_h
 #define GPS3D_h
-
+#include<IGps3d.h>
 #include <GPS2D.h>
 
 #define GGA_SATS_IN_USE_FIELD_NUMBER 7
@@ -26,7 +26,7 @@
  * valid sentences to an output stream, allowing to get 3D positioning data
  * (using RMC and GGA sentences)
  */
-class GPS3D : public GPS2D
+class GPS3D : public GPS2D, public IGps3d
 {
 private:
   // per object data
@@ -112,7 +112,7 @@ public:
    * Reads required sentences from input stream (optionally writing valid ones on output stream),
    * and extracting positioning data.
    */
-  GPS_status_enum
+  virtual GPS_status_enum
   readPositioningData(char *nmeaRmcSentenceBuffer, char *nmeaGgaSentenceBuffer);
 
   /**
@@ -133,7 +133,10 @@ public:
    * Getter for altitude (in m)
    * @return altitude, as mm.m
    */
-  double
-  getAltitude(void);
+  virtual double
+  getAltitude(void) const;
+
+  virtual boolean
+  getFix(void) const;
 };
 #endif
