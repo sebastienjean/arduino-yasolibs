@@ -10,7 +10,8 @@
  *     Sebastien Jean - initial API and implementation
  */
 
-#include <Arduino.h> 
+#include <Arduino.h>
+#include <GpsUtil.h>
 #include <GPS.h>
 
 GPS::GPS(Stream *in)

@@ -15,31 +15,7 @@
 
 #include <inttypes.h>
 #include <Stream.h>
-
-/**
- * Maximum length of NMEA sentences (NMEA 0183 defines maximum as 82)
- */
-#define MAX_NMEA_SENTENCE_LENGTH 85 // NMEA 0183 maximum is 82
-/**
- * Default timeout for each sentence reading, in milliseconds
- */
-#define DEFAULT_READING_TIMEOUT_VALUE_IN_MILLIS 2000;
-
-/**
- * Default timeout for each sentence reading, in characters
- */
-#define DEFAULT_READING_TIMEOUT_VALUE_IN_CHARS 2000;
-
-/**
- * Status codes for GPS readings
- */
-typedef enum
-{
-  GPS_OK = 0,     //!< GPS_OK reading is successful
-  GPS_TIMEOUT = 1,     //!< GPS_TIMEOUT timeout occured while reading
-  GPS_NOT_NMEA = 2     //!< GPS_NOT_NMEA chars limit reached while reading
-} GPS_status_enum;
-
+#include <GpsUtil.h>
 /**
  * A NMEA GPS, reading sentences from an input stream (with timeouts), optionally writing
  * valid sentences to an output stream. This class in an abstract class, defining commons
