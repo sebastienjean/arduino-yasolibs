@@ -17,9 +17,18 @@
 #ifndef AD7995_h
 #define AD7995_h
 
-#define AD7995_0_ADDRESS  0b01010000
+#include <Arduino.h>
 
-#define AD7995_1_ADDRESS  0b01010010
+#define AD7995_0_ADDRESS  0b00101000
+
+#define AD7995_1_ADDRESS  0b00101001
+
+#define AD7995_CHANNEL_SELECTION_BASE_MASK 0b00010000
+
+#define AD7995_RAW_TO_RESULT_CONVERSION_MASK 0b0000111111111100
+
+#define NUMBER_OF_CHANNELS 4
+
 
 /**
  * This class allows to handle an I2C AD7995 (both 0 or 1 models) ADC

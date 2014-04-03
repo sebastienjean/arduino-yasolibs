@@ -15,14 +15,27 @@
  */
 
 #include <AD7995.h>
+#include <Wire.h>
 
 AD7995::AD7995(int address)
 {
-  this-> address = address;
+  this->address = address;
+  Wire.begin();
 }
 
 int
 AD7995::read(int channel)
 {
-  return 0;
+   uint16_t result = 0;
+   Wire.beginTransmission(this->address);
+   Wire.write(AD7995_CHANNEL_SELECTION_BASE_MASK << channel);
+   Wire.requestFrom(this->address,2);
+
+   while(Wire.available())
+   {
+       result = result << 8;
+       result += Wire.read();
+   }
+   Wire.endTransmission();
+   return ((result & AD7995_RAW_TO_RESULT_CONVERSION_MASK) >> 2);
 }
