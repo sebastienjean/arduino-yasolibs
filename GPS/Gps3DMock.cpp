@@ -28,8 +28,6 @@ Gps3DMock::readPositioningData(char *nmeaRmcSentenceBuffer, char *nmeaGgaSentenc
 	if(digitalRead(m_pinNumber)==HIGH)
 	{
 		m_sequence->NextData();
-		char *msgDebug="------->nextLevel\r\n";;
-		Serial.write((unsigned char*)msgDebug,strlen(msgDebug));
 	}
 	strcpy(nmeaRmcSentenceBuffer,m_sequence->GetCurrentData()->GetFrameRmc());
 	strcpy(nmeaGgaSentenceBuffer,m_sequence->GetCurrentData()->GetFramGGa());
