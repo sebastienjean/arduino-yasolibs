@@ -45,7 +45,7 @@ public:
    * @param mcp3428 MCP3428 to which the sensor is attached
    * @param channel analog channel to which the sensor is attached
    */
-  AD7995AnalogSensor(MCP3428 *mcp3428, int channel);
+  MCP3428AnalogSensor(MCP3428 *mcp3428, int channel);
 
   /**
    * Reads analog sensor value.

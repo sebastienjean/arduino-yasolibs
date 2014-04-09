@@ -14,17 +14,17 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AD7995.h>
-#include <AD7995AnalogSensor.h>
+#include <MCP3428.h>
+#include <MCP3428AnalogSensor.h>
 
-AD7995AnalogSensor::AD7995AnalogSensor(AD7995 *ad7995, int channel)
+MCP3428AnalogSensor::MCP3428AnalogSensor(MCP3428 *mcp3428, int channel)
 {
-  this->ad7995 = ad7995;
+  this->mcp3428 = mcp3428;
   this-> channel = channel;
 }
 
 int
-AD7995AnalogSensor::read(void)
+MCP3428AnalogSensor::read(void)
 {
-  return this->ad7995->read(this->channel);
+  return this->mcp3428->read(this->channel);
 }
