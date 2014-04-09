@@ -14,15 +14,15 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ANALOG_CHANNEL_ANALOG_SENSOR_h
-#define ANALOG_CHANNEL_ANALOG_SENSOR_h
+#ifndef BUILT_IN_ANALOG_SENSOR_h
+#define BUILT_IN_ANALOG_SENSOR_h
 
 #include <AnalogSensor.h>
 
 /**
- * This class allows to handle an analog sensor, attached to a given analog channel (A0 ...)
+ * This class allows to handle an analog sensor, attached to a given Arduino's built-in analog channel (A0 ...)
  */
-class AnalogChannelAnalogSensor : public AnalogSensor
+class BuiltInAnalogSensor : public AnalogSensor
 {
 private:
 
@@ -38,7 +38,7 @@ public:
    *
    * @param channel analog channel to which the sensor is attached
    */
-  AnalogChannelAnalogSensor(int channel);
+  BuiltInAnalogSensor(int channel);
 
   /**
    * Reads analog sensor value.
