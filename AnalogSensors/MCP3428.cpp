@@ -30,7 +30,24 @@ MCP3428::MCP3428(boolean addressBit0, boolean addressBit1)
 int
 MCP3428::read(int channel)
 {
-   //uint16_t result = 0;
-   return 0;
-   // TODO to be completed
-}
+
+      // Conf. register, 16 bit resolution, continuous conversion, x1 gain
+      uint8_t configurationRegister = 0b00000000;
+      configurationRegister |= MCP3428_CONFIGURATION_REGISTER_16BITS_RESOLUTION_MASK;
+      configurationRegister |= (1 << MCP3428_CONFIGURATION_REGISTER_READY_SHIFT_OFFSET);
+      configurationRegister |= (channel << MCP3428_CONFIGURATION_REGISTER_CHANNEL_SHIFT_OFFSET);
+
+      Wire.beginTransmission(this->address);
+      Wire.write(configurationRegister);
+      Wire.endTransmission();
+
+      Wire.requestFrom(this->address, MCP3428_NUMBER_OF_BYTES_TO_READ);
+
+      uint8_t dataMSB = Wire.read();
+      uint8_t dataLSB = Wire.read();
+      configurationRegister = Wire.read();
+
+      uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;
+
+      return result;
+ }
