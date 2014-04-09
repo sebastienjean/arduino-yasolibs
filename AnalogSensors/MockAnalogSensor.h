@@ -19,7 +19,8 @@
 
 #include <AnalogSensor.h>
 /**
- * This class allows to handle mock analog sensors
+ * This class allows to handle mock analog sensors.
+ * Mock analog sensors always return the same preset value
  */
 class MockAnalogSensor : public AnalogSensor
 {
