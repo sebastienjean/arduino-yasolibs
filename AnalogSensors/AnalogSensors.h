@@ -22,9 +22,7 @@
 #include <AnalogSensor.h>
 
 /**
- * This class wraps a set of analog sensors. The number of sensors that can be grouped in an instance of this
- * class depends on the number of analog channels available on the platform
- * (see <tt>NUM_ANALOG_INPUT</tt> in <tt>pins_arduino.h</tt>).
+ * This class wraps a set of analog sensors.
  */
 class AnalogSensors
 {
