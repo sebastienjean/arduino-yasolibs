@@ -17,6 +17,7 @@
 #ifndef BUILT_IN_ANALOG_SENSOR_h
 #define BUILT_IN_ANALOG_SENSOR_h
 
+#include <Arduino.h>
 #include <AnalogSensor.h>
 
 /**
@@ -29,7 +30,7 @@ private:
   /**
    * Analog channel to which the sensor is attached.
    */
-  int channel;
+  uint8_t channel;
 
 public:
 
@@ -38,16 +39,15 @@ public:
    *
    * @param channel analog channel to which the sensor is attached
    */
-  BuiltInAnalogSensor(int channel);
+  BuiltInAnalogSensor(uint8_t channel);
 
   /**
-   * Reads analog sensor value.
-   *
-   * @return analog sensor value
-   */
-  int
-  read(void);
-
+    * Reads analog sensor value.
+    *
+    * @return analog sensor value
+    */
+   uint16_t
+   read(void);
 };
 
 #endif

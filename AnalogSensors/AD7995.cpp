@@ -17,19 +17,19 @@
 #include <AD7995.h>
 #include <Wire.h>
 
-AD7995::AD7995(int address)
+AD7995::AD7995(uint8_t address)
 {
   this->address = address;
   Wire.begin();
 }
 
-int
-AD7995::read(int channel)
+uint16_t
+AD7995::read(uint8_t channel)
 {
    uint16_t result = 0;
    Wire.beginTransmission(this->address);
    Wire.write(AD7995_CHANNEL_SELECTION_BASE_MASK << channel);
-   Wire.requestFrom(this->address,2);
+   Wire.requestFrom(this->address,(uint8_t)2);
 
    while(Wire.available())
    {

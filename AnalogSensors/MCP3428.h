@@ -41,7 +41,7 @@ private:
   /**
    * Address on the I2C bus
    */
-  int address;
+  uint8_t address;
 
 public:
 
@@ -59,8 +59,8 @@ public:
    * @param channel analog channel number
    * @return analog sensor value
    */
-  int
-  read(int channel);
+  uint16_t
+  read(uint8_t channel);
 
 };
 

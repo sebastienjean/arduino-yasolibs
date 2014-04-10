@@ -13,19 +13,17 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <pins_arduino.h>
 
 #include <AnalogSensors.h>
-#include <AnalogSensor.h>
 
-AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, int analogSensorsAmount)
+AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, uint16_t analogSensorsAmount)
 {
   this->analogSensors = analogSensors;
   this->analogSensorsAmount = analogSensorsAmount;
 }
 
-int
-AnalogSensors::read(int sensorNumber)
+uint16_t
+AnalogSensors::read(uint16_t sensorNumber)
 {
   if ((sensorNumber < 0) || (sensorNumber > getAmount()))
       return -1;
@@ -33,7 +31,7 @@ AnalogSensors::read(int sensorNumber)
   return analogSensors[sensorNumber - 1]->read();
 }
 
-int
+uint16_t
 AnalogSensors::getAmount()
 {
   return this->analogSensorsAmount;

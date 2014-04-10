@@ -40,7 +40,7 @@ private:
   /**
    * Address on the I2C bus
    */
-  int address;
+  uint8_t address;
 
 public:
 
@@ -49,7 +49,7 @@ public:
    *
    * @param address address on the I2C bus
    */
-  AD7995(int address);
+  AD7995(uint8_t address);
 
   /**
    * Reads analog sensor value.
@@ -57,8 +57,8 @@ public:
    * @param channel analog channel number
    * @return analog sensor value
    */
-  int
-  read(int channel);
+  uint16_t
+  read(uint8_t channel);
 
 };
 

@@ -16,7 +16,6 @@
 
 #include <MCP3428.h>
 #include <Wire.h>
-#include <Arduino.h>
 
 MCP3428::MCP3428(boolean addressBit0, boolean addressBit1)
 {
@@ -27,8 +26,8 @@ MCP3428::MCP3428(boolean addressBit0, boolean addressBit1)
   Wire.begin();
 }
 
-int
-MCP3428::read(int channel)
+uint16_t
+MCP3428::read(uint8_t channel)
 {
 
       // Conf. register, 16 bit resolution, continuous conversion, x1 gain
@@ -41,7 +40,7 @@ MCP3428::read(int channel)
       Wire.write(configurationRegister);
       Wire.endTransmission();
 
-      Wire.requestFrom(this->address, MCP3428_NUMBER_OF_BYTES_TO_READ);
+      Wire.requestFrom(this->address, (uint8_t) MCP3428_NUMBER_OF_BYTES_TO_READ);
 
       uint8_t dataMSB = Wire.read();
       uint8_t dataLSB = Wire.read();

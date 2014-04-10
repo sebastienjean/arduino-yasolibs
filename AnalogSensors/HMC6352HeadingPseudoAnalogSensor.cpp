@@ -16,7 +16,6 @@
 
 #include <HMC6352HeadingPseudoAnalogSensor.h>
 #include <Wire.h>
-#include <Arduino.h>
 
 HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor()
 {
@@ -24,7 +23,7 @@ HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor()
   Wire.begin();
 }
 
-int
+uint16_t
 HMC6352HeadingPseudoAnalogSensor::read()
 {
   return 0;

@@ -36,7 +36,7 @@ private:
   /**
    * Number of sensors in this set
    */
-  int analogSensorsAmount;
+  uint16_t analogSensorsAmount;
 
 public:
 
@@ -46,7 +46,7 @@ public:
    * @param analogSensors an array containing sensors to add to this set
    * @param analogSensorsAmount the number of sensors to add from <tt>analogSensors</tt>
    */
-  AnalogSensors(AnalogSensor** analogSensors, int analogSensorsAmount);
+  AnalogSensors(AnalogSensor** analogSensors, uint16_t analogSensorsAmount);
 
   /**
    * Reads a given sensor value.
@@ -54,15 +54,15 @@ public:
    * @param sensorNumber the number of the sensor to read
    * @return value of sensor <tt>sensorNumber</tt> if it exists, -1 else
    */
-  int
-  read(int sensorNumber);
+  uint16_t
+  read(uint16_t sensorNumber);
 
   /**
    * Returns the amount of analog sensors in this set
    *
    * @return the amount of analog sensors in this set
    */
-  int
+  uint16_t
   getAmount(void);
 };
 

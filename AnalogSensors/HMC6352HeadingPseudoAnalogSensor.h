@@ -17,8 +17,8 @@
 #ifndef HMC6352_HEADING_ANALOG_SENSOR_h
 #define HMC6352_HEADING_ANALOG_SENSOR_h
 
-#include <AnalogSensor.h>
 #include <Arduino.h>
+#include <AnalogSensor.h>
 
 #define HMC6352_BASE_ADDRESS  0b00000000
 
@@ -34,7 +34,7 @@ private:
   /**
    * Address on the I2C bus
    */
-  int address;
+  uint8_t address;
 
 public:
 
@@ -44,12 +44,12 @@ public:
   HMC6352HeadingPseudoAnalogSensor();
 
   /**
-     * Reads heading and returns it as an analog sensor value.
-     *
-     * @return heading as an analog sensor value
-     */
-  int
-  read();
+    * Reads heading as analog sensor value.
+    *
+    * @return heading as analog sensor value
+    */
+   uint16_t
+   read(void);
 
 };
 

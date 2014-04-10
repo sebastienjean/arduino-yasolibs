@@ -16,12 +16,12 @@
 
 #include <MockAnalogSensor.h>
 
-MockAnalogSensor::MockAnalogSensor(int valueToBeReturned)
+MockAnalogSensor::MockAnalogSensor(uint16_t valueToBeReturned)
 {
   this->valueToBeReturned = valueToBeReturned;
 }
 
-int
+uint16_t
 MockAnalogSensor::read(void)
 {
   return this->valueToBeReturned;

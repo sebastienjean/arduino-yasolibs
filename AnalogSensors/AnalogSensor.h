@@ -17,6 +17,7 @@
 #ifndef ANALOG_SENSOR_h
 #define ANALOG_SENSOR_h
 
+#include <Arduino.h>
 /**
  * This class allows to handle an analog sensor (up to 16-bit resolution)
  */
@@ -29,9 +30,17 @@ public:
    *
    * @return analog sensor value
    */
-  virtual int
+  virtual uint16_t
   read(void) = 0;
 
+
+  /**
+    * Gets ADC resolution (in bits).
+    *
+    * @return ADC resolution (in bits)
+    */
+   virtual uint16_t
+   getResolution(void) = 0;
 };
 
 #endif

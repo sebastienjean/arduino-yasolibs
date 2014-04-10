@@ -17,8 +17,8 @@
 #ifndef MCP3428_ANALOG_SENSOR_h
 #define MCP3428_ANALOG_SENSOR_h
 
-#include <MCP3428.h>
 #include <AnalogSensor.h>
+#include <MCP3428.h>
 
 /**
  * This class allows to handle an analog sensor, attached to a channel of an MCP3428 I2C ADC
@@ -35,7 +35,7 @@ private:
   /**
    * Analog channel to which the sensor is attached.
    */
-  int channel;
+  uint8_t channel;
 
 public:
 
@@ -45,16 +45,15 @@ public:
    * @param mcp3428 MCP3428 to which the sensor is attached
    * @param channel analog channel to which the sensor is attached
    */
-  MCP3428AnalogSensor(MCP3428 *mcp3428, int channel);
+  MCP3428AnalogSensor(MCP3428 *mcp3428, uint8_t channel);
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  int
+  uint16_t
   read(void);
-
 };
 
 #endif

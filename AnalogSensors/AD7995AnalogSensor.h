@@ -35,7 +35,7 @@ private:
   /**
    * Analog channel to which the sensor is attached.
    */
-  int channel;
+uint8_t channel;
 
 public:
 
@@ -45,16 +45,15 @@ public:
    * @param add7995 AD7995 to which the sensor is attached
    * @param channel analog channel to which the sensor is attached
    */
-  AD7995AnalogSensor(AD7995 *ad7995, int channel);
+  AD7995AnalogSensor(AD7995 *ad7995, uint8_t channel);
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  int
+  uint16_t
   read(void);
-
 };
 
 #endif

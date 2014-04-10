@@ -29,7 +29,7 @@ private:
   /**
    * Value to be returned
    */
-  int valueToBeReturned;
+  uint16_t valueToBeReturned;
 
 public:
 
@@ -38,16 +38,15 @@ public:
    *
    * @param valueToBeReturned value to be returned
    */
-  MockAnalogSensor(int valueToBeReturned);
+  MockAnalogSensor(uint16_t valueToBeReturned);
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  int
+  uint16_t
   read(void);
-
 };
 
 #endif

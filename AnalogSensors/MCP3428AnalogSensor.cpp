@@ -17,13 +17,13 @@
 #include <MCP3428.h>
 #include <MCP3428AnalogSensor.h>
 
-MCP3428AnalogSensor::MCP3428AnalogSensor(MCP3428 *mcp3428, int channel)
+MCP3428AnalogSensor::MCP3428AnalogSensor(MCP3428 *mcp3428, uint8_t channel)
 {
   this->mcp3428 = mcp3428;
   this-> channel = channel;
 }
 
-int
+uint16_t
 MCP3428AnalogSensor::read(void)
 {
   return this->mcp3428->read(this->channel);

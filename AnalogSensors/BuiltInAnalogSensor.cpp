@@ -13,17 +13,15 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <Arduino.h>
-
 #include <BuiltInAnalogSensor.h>
 
-BuiltInAnalogSensor::BuiltInAnalogSensor(int channel)
+BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel)
 {
   this->channel = channel;
   pinMode(this->channel, INPUT);
 }
 
-int
+uint16_t
 BuiltInAnalogSensor::read(void)
 {
   return analogRead(this->channel);

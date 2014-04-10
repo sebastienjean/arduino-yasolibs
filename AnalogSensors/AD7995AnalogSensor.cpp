@@ -14,16 +14,15 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AD7995.h>
 #include <AD7995AnalogSensor.h>
 
-AD7995AnalogSensor::AD7995AnalogSensor(AD7995 *ad7995, int channel)
+AD7995AnalogSensor::AD7995AnalogSensor(AD7995 *ad7995, uint8_t channel)
 {
   this->ad7995 = ad7995;
   this-> channel = channel;
 }
 
-int
+uint16_t
 AD7995AnalogSensor::read(void)
 {
   return this->ad7995->read(this->channel);
