@@ -14,43 +14,45 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HMC6352_HEADING_ANALOG_SENSOR_h
-#define HMC6352_HEADING_ANALOG_SENSOR_h
+#ifndef HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
+#define HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
 
 #include <Arduino.h>
 #include <AnalogSensor.h>
 
-#define HMC6352_BASE_ADDRESS  0b00000000
+#define HMC6352_ADDRESS 0b00000000
+#define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 10
 
 /**
- * This class allows to handle an I2C HMC6352 compass as an heading (pseudo) analog sensor.
- * "pseudo" means that it is not an analog sensor but it can be seen like one. Note here that
- * only heading is provided.
+ * This class allows to consider an HMC6352 I2C compass as a pseudo ADC on which
+ * a (pseudo) heading analog sensor is attached
  */
 class HMC6352HeadingPseudoAnalogSensor : public AnalogSensor
 {
-private:
-
-  /**
-   * Address on the I2C bus
-   */
-  uint8_t address;
-
 public:
 
   /**
-   * Creates a HMC6352 heading pseudo analog sensor  instance.
+   * Creates a HMC6352 heading pseudo analog sensor instance.
+   *
+   * @param address address on the I2C bus
    */
   HMC6352HeadingPseudoAnalogSensor();
 
   /**
-    * Reads heading as analog sensor value.
-    *
-    * @return heading as analog sensor value
-    */
-   uint16_t
-   read(void);
+   * Reads analog sensor value.
+   *
+   * @return analog sensor value
+   */
+  uint16_t
+  read();
 
+  /**
+    * Gets ADC resolution (in bits).
+    *
+    * @return ADC resolution (in bits)
+    */
+   uint8_t
+   getAdcResolution(void);
 };
 
 #endif

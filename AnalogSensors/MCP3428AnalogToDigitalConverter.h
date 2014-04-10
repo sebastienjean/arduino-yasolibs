@@ -18,6 +18,9 @@
 #define MCP3428_h
 
 #include <Arduino.h>
+#include <AnalogToDigitalConverter.h>
+
+#define MCP3428_DEFAULT_RESOLUTION 12
 
 #define MCP3428_BASE_ADDRESS  0b01101000
 
@@ -32,9 +35,9 @@
 #define MCP3428_CONFIGURATION_REGISTER_16BITS_RESOLUTION_MASK 0b00001000
 
 /**
- * This class allows to handle an I2C AD7995 (both 0 or 1 models) ADC
+ * This class allows to handle an I2C MCP3428 ADC
  */
-class MCP3428
+class MCP3428AnalogToDigitalConverter : public AnalogToDigitalConverter
 {
 private:
 
@@ -42,6 +45,11 @@ private:
    * Address on the I2C bus
    */
   uint8_t address;
+
+  /**
+   * Resolution (in bits)
+   */
+  uint8_t resolution;
 
 public:
 
@@ -51,7 +59,7 @@ public:
    * @param addressBit0 first address configuration bit value
    * @param addressBit1 first address configuration bit value
    */
-  MCP3428(boolean addressBit0, boolean addressBit1);
+  MCP3428AnalogToDigitalConverter(boolean addressBit0, boolean addressBit1);
 
   /**
    * Reads analog sensor value.
@@ -61,6 +69,22 @@ public:
    */
   uint16_t
   read(uint8_t channel);
+
+  /**
+   * Gets resolution (in bits).
+   *
+   * @return resolution (in bits)
+   */
+  uint8_t
+  getResolution(void);
+
+  /**
+   * Sets resolution (in bits).
+   *
+   * @param resolution (in bits)
+   */
+  void
+  setResolution(uint8_t resolution);
 
 };
 

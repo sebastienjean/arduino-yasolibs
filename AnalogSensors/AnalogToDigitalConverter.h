@@ -14,17 +14,35 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MCP3428.h>
-#include <MCP3428AnalogSensor.h>
+#ifndef ANALOG_TO_DIGITAL_CONVERTER_h
+#define ANALOG_TO_DIGITAL_CONVERTER_h
 
-MCP3428AnalogSensor::MCP3428AnalogSensor(MCP3428 *mcp3428, uint8_t channel)
-{
-  this->mcp3428 = mcp3428;
-  this-> channel = channel;
-}
+//#include <Arduino.h>
 
-uint16_t
-MCP3428AnalogSensor::read(void)
+/**
+ * This abstract class allows to handle ADCs (Analog to Digital Converters)
+ */
+class AnalogToDigitalConverter
 {
-  return this->mcp3428->read(this->channel);
-}
+public:
+
+  /**
+   * Reads analog sensor value.
+   *
+   * @param channel analog channel number
+   * @return analog sensor value
+   */
+  virtual uint16_t
+  read(uint8_t channel) = 0;
+
+  /**
+    * Gets resolution (in bits).
+    *
+    * @return resolution (in bits)
+    */
+   virtual uint8_t
+   getResolution(void) = 0;
+};
+
+#endif
+

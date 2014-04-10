@@ -31,14 +31,20 @@ private:
    */
   uint16_t valueToBeReturned;
 
+  /**
+   * Resolution to be returned
+   */
+  uint8_t resolutionToBeReturned;
+
 public:
 
   /**
-   * Creates a mock sensor associated to a given return value
+   * Creates a mock sensor associated to given return value and resolution
    *
    * @param valueToBeReturned value to be returned
+   * @param resolutionToBeReturned resolution to be returned
    */
-  MockAnalogSensor(uint16_t valueToBeReturned);
+  MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned );
 
   /**
    * Reads analog sensor value.
@@ -47,6 +53,14 @@ public:
    */
   uint16_t
   read(void);
+
+  /**
+   * Gets ADC resolution (in bits).
+   *
+   * @return ADC resolution (in bits)
+   */
+  uint8_t
+  getAdcResolution(void);
 };
 
 #endif

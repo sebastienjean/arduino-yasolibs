@@ -18,6 +18,9 @@
 #define AD7995_h
 
 #include <Arduino.h>
+#include <AnalogToDigitalConverter.h>
+
+#define AD7995_RESOLUTION 10;
 
 #define AD7995_0_ADDRESS  0b00101000
 
@@ -33,7 +36,7 @@
 /**
  * This class allows to handle an I2C AD7995 (both 0 or 1 models) ADC
  */
-class AD7995
+class AD7995AnalogToDigitalConverter : public AnalogToDigitalConverter
 {
 private:
 
@@ -49,7 +52,7 @@ public:
    *
    * @param address address on the I2C bus
    */
-  AD7995(uint8_t address);
+  AD7995AnalogToDigitalConverter(uint8_t address);
 
   /**
    * Reads analog sensor value.
@@ -60,6 +63,13 @@ public:
   uint16_t
   read(uint8_t channel);
 
+  /**
+    * Gets resolution (in bits).
+    *
+    * @return resolution (in bits)
+    */
+   uint8_t
+   getResolution(void);
 };
 
 #endif

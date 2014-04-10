@@ -15,9 +15,8 @@
  */
 #include <BuiltInAnalogSensor.h>
 
-BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel)
+BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel) : AnalogSensor(NULL, channel)
 {
-  this->channel = channel;
   pinMode(this->channel, INPUT);
 }
 

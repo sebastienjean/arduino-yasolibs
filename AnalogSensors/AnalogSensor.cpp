@@ -13,29 +13,22 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <AnalogSensor.h>
 
-#include <AD7995.h>
-#include <Wire.h>
-
-AD7995::AD7995(uint8_t address)
+AnalogSensor::AnalogSensor(AnalogToDigitalConverter * adc, uint8_t channel)
 {
-  this->address = address;
-  Wire.begin();
+  this->adc = adc;
+  this->channel = channel;
 }
 
 uint16_t
-AD7995::read(uint8_t channel)
+AnalogSensor::read(void)
 {
-   uint16_t result = 0;
-   Wire.beginTransmission(this->address);
-   Wire.write(AD7995_CHANNEL_SELECTION_BASE_MASK << channel);
-   Wire.requestFrom(this->address,(uint8_t)2);
+  return this->adc->read(this->channel);
+}
 
-   while(Wire.available())
-   {
-       result = result << 8;
-       result += Wire.read();
-   }
-   Wire.endTransmission();
-   return ((result & AD7995_RAW_TO_RESULT_CONVERSION_MASK) >> 2);
+uint8_t
+AnalogSensor::getAdcResolution(void)
+{
+  return this->adc->getResolution();
 }

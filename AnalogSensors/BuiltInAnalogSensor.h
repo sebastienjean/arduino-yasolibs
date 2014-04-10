@@ -25,12 +25,6 @@
  */
 class BuiltInAnalogSensor : public AnalogSensor
 {
-private:
-
-  /**
-   * Analog channel to which the sensor is attached.
-   */
-  uint8_t channel;
 
 public:
 

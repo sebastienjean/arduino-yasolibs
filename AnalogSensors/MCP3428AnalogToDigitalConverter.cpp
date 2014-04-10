@@ -14,12 +14,13 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MCP3428.h>
+#include <MCP3428AnalogToDigitalConverter.h>
 #include <Wire.h>
 
-MCP3428::MCP3428(boolean addressBit0, boolean addressBit1)
+MCP3428AnalogToDigitalConverter::MCP3428AnalogToDigitalConverter(boolean addressBit0, boolean addressBit1)
 {
   this->address = MCP3428_BASE_ADDRESS;
+  this->resolution = MCP3428_DEFAULT_RESOLUTION;
   if (addressBit0) this->address = (this->address & 0b00000100);
   if (addressBit1) this->address = (this->address & 0b00000010);
 
@@ -27,7 +28,7 @@ MCP3428::MCP3428(boolean addressBit0, boolean addressBit1)
 }
 
 uint16_t
-MCP3428::read(uint8_t channel)
+MCP3428AnalogToDigitalConverter::read(uint8_t channel)
 {
 
       // Conf. register, 16 bit resolution, continuous conversion, x1 gain
@@ -50,3 +51,16 @@ MCP3428::read(uint8_t channel)
 
       return result;
  }
+
+uint8_t
+MCP3428AnalogToDigitalConverter::getResolution()
+{
+  return this->resolution;
+}
+
+void
+MCP3428AnalogToDigitalConverter::setResolution(uint8_t resolution)
+{
+  // TODO check if resolution is supported
+  this->resolution = resolution;
+}

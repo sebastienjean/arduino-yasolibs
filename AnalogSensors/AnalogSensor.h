@@ -18,29 +18,50 @@
 #define ANALOG_SENSOR_h
 
 #include <Arduino.h>
+#include <AnalogToDigitalConverter.h>
+
 /**
  * This class allows to handle an analog sensor (up to 16-bit resolution)
  */
 class AnalogSensor
 {
+protected:
+
+  /**
+   * ADC to which the analog sensor is attached
+   */
+  AnalogToDigitalConverter *adc;
+
+  /**
+   * (ADC) channel to which the analog sensor is attached
+   */
+  uint8_t channel;
+
 public:
+
+  /**
+   * Creates an analog sensor attached to a given channel of a given ADC.
+   *
+   * @param adc ADC to which the analog sensor is attached
+   * @param channel analog channel to which the sensor is attached
+   */
+  AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel);
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  virtual uint16_t
-  read(void) = 0;
-
+  uint16_t
+  read(void);
 
   /**
-    * Gets ADC resolution (in bits).
-    *
-    * @return ADC resolution (in bits)
-    */
-   virtual uint16_t
-   getResolution(void) = 0;
+   * Gets ADC resolution (in bits).
+   *
+   * @return ADC resolution (in bits)
+   */
+  uint8_t
+  getAdcResolution(void);
 };
 
 #endif

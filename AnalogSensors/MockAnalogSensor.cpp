@@ -16,7 +16,7 @@
 
 #include <MockAnalogSensor.h>
 
-MockAnalogSensor::MockAnalogSensor(uint16_t valueToBeReturned)
+MockAnalogSensor::MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned) : AnalogSensor(NULL, 0)
 {
   this->valueToBeReturned = valueToBeReturned;
 }
@@ -25,4 +25,10 @@ uint16_t
 MockAnalogSensor::read(void)
 {
   return this->valueToBeReturned;
+}
+
+uint8_t
+MockAnalogSensor::getAdcResolution()
+{
+  return this->resolutionToBeReturned;
 }
