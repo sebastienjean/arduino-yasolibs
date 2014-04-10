@@ -17,6 +17,7 @@
 #ifndef HMC6352_HEADING_ANALOG_SENSOR_h
 #define HMC6352_HEADING_ANALOG_SENSOR_h
 
+#include <AnalogSensor.h>
 #include <Arduino.h>
 
 #define HMC6352_BASE_ADDRESS  0b00000000
@@ -26,7 +27,7 @@
  * "pseudo" means that it is not an analog sensor but it can be seen like one. Note here that
  * only heading is provided.
  */
-class HMC6352HeadingPseudoAnalogSensor
+class HMC6352HeadingPseudoAnalogSensor : public AnalogSensor
 {
 private:
 
