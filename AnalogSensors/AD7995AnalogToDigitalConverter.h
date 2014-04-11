@@ -32,6 +32,9 @@
 
 #define AD7995_NUMBER_OF_CHANNELS 4
 
+#define AD7995_NUMBER_OF_BYTES_TO_READ 2
+
+#define AD7995_MAXIMUM_CONVERSION_DELAY_MILLIS 10
 
 /**
  * This class allows to handle an I2C AD7995 (both 0 or 1 models) ADC

@@ -29,19 +29,23 @@ AD7995AnalogToDigitalConverter::read(uint8_t channel)
   uint16_t result = 0;
   Wire.beginTransmission(this->address);
   Wire.write(AD7995_CHANNEL_SELECTION_BASE_MASK << channel);
-  Wire.requestFrom(this->address, (uint8_t) 2);
-
-  while (Wire.available())
-    {
-      result = result << 8;
-      result += Wire.read();
-    }
   Wire.endTransmission();
+
+  delay(AD7995_MAXIMUM_CONVERSION_DELAY_MILLIS)
+
+  Wire.requestFrom(this->address, (uint8_t) AD7995_NUMBER_OF_BYTES_TO_READ);
+
+  uint8_t dataMSB = Wire.read();
+  uint8_t dataLSB = Wire.read();
+  Wire.endTransmission();
+
+  uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;
+
   return ((result & AD7995_RAW_TO_RESULT_CONVERSION_MASK) >> 2);
 }
 
 uint8_t
 AD7995AnalogToDigitalConverter::getResolution()
 {
-  return AD7995_RESOLUTION;
+  return (uint8_t) AD7995_RESOLUTION;
 }
