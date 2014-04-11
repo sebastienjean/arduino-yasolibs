@@ -25,8 +25,18 @@ HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor() : AnalogSen
 uint16_t
 HMC6352HeadingPseudoAnalogSensor::read()
 {
-  // TODO to be completed, dummy code
-  return 0;
+    Wire.beginTransmission(HMC6352_ADDRESS);
+    Wire.write(HMC6352_GET_DATA_COMMAND);
+    Wire.endTransmission();
+    delay(HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS);
+
+    Wire.requestFrom(HMC6352_ADDRESS, HMC6352_NUMBER_OF_BYTES_TO_READ);
+
+    uint8_t dataMSB = Wire.read();
+    uint8_t dataLSB = Wire.read();
+
+    uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;
+    return result;
 }
 
 uint8_t

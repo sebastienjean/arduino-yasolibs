@@ -20,8 +20,15 @@
 #include <Arduino.h>
 #include <AnalogSensor.h>
 
-#define HMC6352_ADDRESS 0b00000000
+#define HMC6352_ADDRESS 0b00100001
+
 #define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 12
+
+#define HMC6352_NUMBER_OF_BYTES_TO_READ 2
+
+#define HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS 10
+
+#define HMC6352_GET_DATA_COMMAND "A"
 
 /**
  * This class allows to consider an HMC6352 I2C compass as a pseudo ADC on which
@@ -47,12 +54,12 @@ public:
   read(void);
 
   /**
-    * Gets ADC resolution (in bits).
-    *
-    * @return ADC resolution (in bits)
-    */
-   uint8_t
-   getAdcResolution(void);
+   * Gets ADC resolution (in bits).
+   *
+   * @return ADC resolution (in bits)
+   */
+  uint8_t
+  getAdcResolution(void);
 };
 
 #endif
