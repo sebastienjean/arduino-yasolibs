@@ -52,7 +52,7 @@ public:
    *
    * @return analog sensor value
    */
-  uint16_t
+  virtual uint16_t
   read(void);
 
   /**
@@ -60,7 +60,7 @@ public:
    *
    * @return ADC resolution (in bits)
    */
-  uint8_t
+  virtual uint8_t
   getAdcResolution(void);
 };
 
