@@ -36,3 +36,9 @@ AnalogSensors::getAmount()
 {
   return this->analogSensorsAmount;
 }
+
+AnalogSensor *
+AnalogSensors::getAnalogSensor(uint16_t analogSensornumber)
+{
+  return (this->analogSensors)[analogSensornumber];
+}
