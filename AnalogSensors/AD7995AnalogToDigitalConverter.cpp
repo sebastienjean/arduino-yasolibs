@@ -26,12 +26,11 @@ AD7995AnalogToDigitalConverter::AD7995AnalogToDigitalConverter(uint8_t address)
 uint16_t
 AD7995AnalogToDigitalConverter::read(uint8_t channel)
 {
-  uint16_t result = 0;
   Wire.beginTransmission(this->address);
   Wire.write(AD7995_CHANNEL_SELECTION_BASE_MASK << channel);
   Wire.endTransmission();
 
-  delay(AD7995_MAXIMUM_CONVERSION_DELAY_MILLIS)
+  delay(AD7995_MAXIMUM_CONVERSION_DELAY_MILLIS);
 
   Wire.requestFrom(this->address, (uint8_t) AD7995_NUMBER_OF_BYTES_TO_READ);
 
