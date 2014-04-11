@@ -60,9 +60,3 @@ MCP3428AnalogToDigitalConverter::getResolution()
   return this->resolution;
 }
 
-void
-MCP3428AnalogToDigitalConverter::setResolution(uint8_t resolution)
-{
-  // TODO check if resolution is supported
-  this->resolution = resolution;
-}

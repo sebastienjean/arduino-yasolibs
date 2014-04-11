@@ -79,14 +79,6 @@ public:
   uint8_t
   getResolution(void);
 
-  /**
-   * Sets resolution (in bits).
-   *
-   * @param resolution (in bits)
-   */
-  void
-  setResolution(uint8_t resolution);
-
 };
 
 #endif
