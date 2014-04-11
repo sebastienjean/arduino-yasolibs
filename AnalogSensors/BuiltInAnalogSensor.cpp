@@ -25,3 +25,9 @@ BuiltInAnalogSensor::read(void)
 {
   return analogRead(this->channel);
 }
+
+uint8_t
+BuiltInAnalogSensor::getAdcResolution(void)
+{
+  return BUILTIN_ADC_RESOLUTION;
+}

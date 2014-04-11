@@ -20,6 +20,8 @@
 #include <Arduino.h>
 #include <AnalogSensor.h>
 
+#define BUILTIN_ADC_RESOLUTION 10
+
 /**
  * This class allows to handle an analog sensor, attached to a given Arduino's built-in analog channel (A0 ...)
  */
@@ -42,6 +44,15 @@ public:
     */
    uint16_t
    read(void);
+
+
+   /**
+     * Gets ADC resolution (in bits).
+     *
+     * @return ADC resolution (in bits)
+     */
+    uint8_t
+    getAdcResolution(void);
 };
 
 #endif
