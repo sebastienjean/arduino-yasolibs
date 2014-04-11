@@ -21,7 +21,7 @@
 #include <AnalogSensor.h>
 
 #define HMC6352_ADDRESS 0b00000000
-#define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 10
+#define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 12
 
 /**
  * This class allows to consider an HMC6352 I2C compass as a pseudo ADC on which
