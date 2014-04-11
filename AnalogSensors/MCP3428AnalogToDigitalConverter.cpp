@@ -17,12 +17,15 @@
 #include <MCP3428AnalogToDigitalConverter.h>
 #include <Wire.h>
 
-MCP3428AnalogToDigitalConverter::MCP3428AnalogToDigitalConverter(boolean addressBit0, boolean addressBit1)
+MCP3428AnalogToDigitalConverter::MCP3428AnalogToDigitalConverter(
+    boolean addressBit0, boolean addressBit1)
 {
   this->address = MCP3428_BASE_ADDRESS;
   this->resolution = MCP3428_DEFAULT_RESOLUTION;
-  if (addressBit0) this->address = (this->address | 0b00000100);
-  if (addressBit1) this->address = (this->address | 0b00000010);
+  if (addressBit0)
+    this->address = (this->address | 0b00000100);
+  if (addressBit1)
+    this->address = (this->address | 0b00000010);
 
   Wire.begin();
 }
@@ -31,28 +34,45 @@ uint16_t
 MCP3428AnalogToDigitalConverter::read(uint8_t channel)
 {
 
-      // Conf. register, 16 bit resolution, continuous conversion, x1 gain
-      uint8_t configurationRegister = 0b00000000;
-      configurationRegister |= MCP3428_CONFIGURATION_REGISTER_16BITS_RESOLUTION_MASK;
-      configurationRegister |= (1 << MCP3428_CONFIGURATION_REGISTER_READY_SHIFT_OFFSET);
-      configurationRegister |= (channel << MCP3428_CONFIGURATION_REGISTER_CHANNEL_SHIFT_OFFSET);
+  // Conf. register, 16 bit resolution, continuous conversion, x1 gain
+  uint8_t configurationRegister = 0b00000000;
+  configurationRegister |=
+      MCP3428_CONFIGURATION_REGISTER_16BITS_RESOLUTION_MASK;
+  configurationRegister |= (1
+      << MCP3428_CONFIGURATION_REGISTER_READY_SHIFT_OFFSET);
+  configurationRegister |= (channel
+      << MCP3428_CONFIGURATION_REGISTER_CHANNEL_SHIFT_OFFSET);
 
-      Wire.beginTransmission(this->address);
-      Wire.write(configurationRegister);
-      Wire.endTransmission();
+  Wire.beginTransmission(this->address);
+  Wire.write(configurationRegister);
+  Wire.endTransmission();
 
-      delay(MCP3428_MAXIMUM_CONVERSION_DELAY_MILLIS);
+  delay(MCP3428_MAXIMUM_CONVERSION_DELAY_MILLIS);
 
-      Wire.requestFrom(this->address, (uint8_t) MCP3428_NUMBER_OF_BYTES_TO_READ);
+  Wire.requestFrom(this->address, (uint8_t) MCP3428_NUMBER_OF_BYTES_TO_READ);
 
-      uint8_t dataMSB = Wire.read();
-      uint8_t dataLSB = Wire.read();
-      configurationRegister = Wire.read();
+  int16_t byteRead = Wire.read();
+  if (byteRead == -1)
+    return 0;
+  uint8_t dataMSB = byteRead;
 
-      uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;
+  byteRead = Wire.read();
+  if (byteRead == -1)
+    return 0;
 
-      return result;
- }
+  uint8_t dataLSB = byteRead;
+  byteRead = Wire.read();
+  if (byteRead == -1)
+    return 0;
+
+  configurationRegister = byteRead;
+
+  Wire.endTransmission();
+
+  uint16_t result = (((uint16_t) dataMSB) << 8) | dataLSB;
+
+  return result;
+}
 
 uint8_t
 MCP3428AnalogToDigitalConverter::getResolution()

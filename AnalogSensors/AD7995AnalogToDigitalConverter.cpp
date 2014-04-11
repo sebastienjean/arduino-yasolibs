@@ -35,8 +35,14 @@ AD7995AnalogToDigitalConverter::read(uint8_t channel)
 
   Wire.requestFrom(this->address, (uint8_t) AD7995_NUMBER_OF_BYTES_TO_READ);
 
-  uint8_t dataMSB = Wire.read();
-  uint8_t dataLSB = Wire.read();
+  int16_t byteRead =  Wire.read();
+  if (byteRead == -1) return 0;
+  uint8_t dataMSB = byteRead;
+
+  byteRead =  Wire.read();
+  if (byteRead == -1) return 0;
+  uint8_t dataLSB = byteRead;
+
   Wire.endTransmission();
 
   uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;

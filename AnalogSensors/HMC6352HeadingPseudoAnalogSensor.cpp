@@ -17,7 +17,8 @@
 #include <HMC6352HeadingPseudoAnalogSensor.h>
 #include <Wire.h>
 
-HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor() : AnalogSensor(NULL, 0)
+HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor() :
+    AnalogSensor(NULL, 0)
 {
   Wire.begin();
 }
@@ -25,18 +26,28 @@ HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor() : AnalogSen
 uint16_t
 HMC6352HeadingPseudoAnalogSensor::read()
 {
-    Wire.beginTransmission(HMC6352_ADDRESS);
-    Wire.write(HMC6352_GET_DATA_COMMAND);
-    Wire.endTransmission();
-    delay(HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS);
+  Wire.beginTransmission(HMC6352_ADDRESS);
+  Wire.write(HMC6352_GET_DATA_COMMAND);
+  Wire.endTransmission();
 
-    Wire.requestFrom(HMC6352_ADDRESS, HMC6352_NUMBER_OF_BYTES_TO_READ);
+  delay(HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS);
 
-    uint8_t dataMSB = Wire.read();
-    uint8_t dataLSB = Wire.read();
+  Wire.requestFrom(HMC6352_ADDRESS, HMC6352_NUMBER_OF_BYTES_TO_READ);
 
-    uint16_t result = (((uint16_t) dataMSB) << 8) |  dataLSB;
-    return result;
+  int16_t byteRead = Wire.read();
+  if (byteRead == -1)
+    return 0;
+  uint8_t dataMSB = byteRead;
+
+  byteRead = Wire.read();
+  if (byteRead == -1)
+    return 0;
+  uint8_t dataLSB = byteRead;
+
+  Wire.endTransmission();
+
+  uint16_t result = (((uint16_t) dataMSB) << 8) | dataLSB;
+  return result;
 }
 
 uint8_t
