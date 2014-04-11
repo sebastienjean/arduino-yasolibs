@@ -26,7 +26,7 @@ uint16_t
 AnalogSensors::read(uint16_t sensorNumber)
 {
   if ((sensorNumber < 1) || (sensorNumber > getAmount()))
-      return -1;
+      return 0;
 
   return analogSensors[sensorNumber - 1]->read();
 }

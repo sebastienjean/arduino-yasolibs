@@ -15,7 +15,7 @@
  */
 #include <AnalogSensor.h>
 
-AnalogSensor::AnalogSensor(AnalogToDigitalConverter * adc, uint8_t channel)
+AnalogSensor::AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel)
 {
   this->adc = adc;
   this->channel = channel;
