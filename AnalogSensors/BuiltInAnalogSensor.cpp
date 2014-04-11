@@ -21,13 +21,13 @@ BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel) : AnalogSensor(NULL, c
 }
 
 uint16_t
-BuiltInAnalogSensor::read(void)
+BuiltInAnalogSensor::read()
 {
   return analogRead(this->channel);
 }
 
 uint8_t
-BuiltInAnalogSensor::getAdcResolution(void)
+BuiltInAnalogSensor::getAdcResolution()
 {
   return BUILTIN_ADC_RESOLUTION;
 }
