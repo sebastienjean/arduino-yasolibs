@@ -20,7 +20,7 @@
 #include <Arduino.h>
 #include <AnalogToDigitalConverter.h>
 
-#define MCP3428_DEFAULT_RESOLUTION 12
+#define MCP3428_DEFAULT_RESOLUTION 16
 
 #define MCP3428_BASE_ADDRESS 0b01101000
 
