@@ -51,7 +51,7 @@ public:
   /**
    * Reads a given sensor value.
    *
-   * @param sensorNumber the number of the sensor to read
+   * @param sensorNumber the number of the sensor to read (starting at 1)
    * @return value of sensor <tt>sensorNumber</tt> if it exists, -1 else
    */
   uint16_t
