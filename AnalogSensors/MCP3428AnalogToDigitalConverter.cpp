@@ -21,8 +21,8 @@ MCP3428AnalogToDigitalConverter::MCP3428AnalogToDigitalConverter(boolean address
 {
   this->address = MCP3428_BASE_ADDRESS;
   this->resolution = MCP3428_DEFAULT_RESOLUTION;
-  if (addressBit0) this->address = (this->address & 0b00000100);
-  if (addressBit1) this->address = (this->address & 0b00000010);
+  if (addressBit0) this->address = (this->address | 0b00000100);
+  if (addressBit1) this->address = (this->address | 0b00000010);
 
   Wire.begin();
 }
@@ -40,6 +40,8 @@ MCP3428AnalogToDigitalConverter::read(uint8_t channel)
       Wire.beginTransmission(this->address);
       Wire.write(configurationRegister);
       Wire.endTransmission();
+
+      delay(MCP3428_MAXIMUM_CONVERSION_DELAY_MILLIS);
 
       Wire.requestFrom(this->address, (uint8_t) MCP3428_NUMBER_OF_BYTES_TO_READ);
 
