@@ -25,7 +25,7 @@ AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, uint16_t analogSensor
 uint16_t
 AnalogSensors::read(uint16_t sensorNumber)
 {
-  if ((sensorNumber < 0) || (sensorNumber > getAmount()))
+  if ((sensorNumber < 1) || (sensorNumber > getAmount()))
       return -1;
 
   return analogSensors[sensorNumber - 1]->read();
@@ -38,7 +38,7 @@ AnalogSensors::getAmount()
 }
 
 AnalogSensor *
-AnalogSensors::getAnalogSensor(uint16_t analogSensornumber)
+AnalogSensors::getAnalogSensor(uint16_t analogSensorNumber)
 {
-  return (this->analogSensors)[analogSensornumber];
+  return (this->analogSensors)[analogSensorNumber-1];
 }

@@ -66,12 +66,12 @@ public:
   getAmount(void);
 
   /**
-   * Gets an analog sensor by its number (starting at 0)
-   * @param analogSensornumber the offset of the analog sensor to retrieve (starting at 0)
+   * Gets an analog sensor by its number (starting at 1)
+   * @param analogSensornumber the offset of the analog sensor to retrieve (starting at 1)
    * @return the analog sensor at given offset
    */
   AnalogSensor *
-  getAnalogSensor(uint16_t analogSensornumber);
+  getAnalogSensor(uint16_t analogSensorNumber);
 };
 
 #endif
