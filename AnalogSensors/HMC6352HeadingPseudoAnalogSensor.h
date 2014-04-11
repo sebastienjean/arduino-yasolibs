@@ -44,7 +44,7 @@ public:
    * @return analog sensor value
    */
   uint16_t
-  read();
+  read(void);
 
   /**
     * Gets ADC resolution (in bits).

@@ -30,7 +30,7 @@ HMC6352HeadingPseudoAnalogSensor::read()
 }
 
 uint8_t
-getAdcResolution()
+HMC6352HeadingPseudoAnalogSensor::getAdcResolution()
 {
   return HMC6352_HEADING_PSEUDO_ADC_RESOLUTION;
 }
