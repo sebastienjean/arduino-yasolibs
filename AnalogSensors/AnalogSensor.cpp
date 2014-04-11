@@ -22,13 +22,13 @@ AnalogSensor::AnalogSensor(AnalogToDigitalConverter * adc, uint8_t channel)
 }
 
 uint16_t
-AnalogSensor::read(void)
+AnalogSensor::read()
 {
   return this->adc->read(this->channel);
 }
 
 uint8_t
-AnalogSensor::getAdcResolution(void)
+AnalogSensor::getAdcResolution()
 {
   return this->adc->getResolution();
 }
