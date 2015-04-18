@@ -15,31 +15,41 @@
  */
 #include <Arduino.h>
 
-#include <Leds.h>
-#include <Led.h>
+#include <core/Led.h>
 
-Leds::Leds(Led** leds, int ledsAmount)
+Led::Led(int pin, boolean isLedOnAtHighState)
 {
-  this->leds = leds;
-  this->ledsAmount = ledsAmount;
+  this->pin = pin;
+  this->isLedOnAtHighState = isLedOnAtHighState;
+  pinMode(this->pin, OUTPUT);
 }
 
 void
-Leds::on()
+Led::on()
 {
-  for (int ledNumber = 0; ledNumber < this->ledsAmount; ledNumber++)
-      (this->leds[ledNumber])->on();
+  if (this->isLedOnAtHighState)
+    digitalWrite(this->pin, HIGH);
+  else
+    digitalWrite(this->pin, LOW);
 }
 
 void
-Leds::off()
+Led::off()
 {
-  for (int ledNumber = 0; ledNumber < this->ledsAmount; ledNumber++)
-      (this->leds[ledNumber])->off();
+  if (this->isLedOnAtHighState)
+     digitalWrite(this->pin, LOW);
+   else
+     digitalWrite(this->pin, HIGH);
 }
 
 void
-Leds::quicklyMakeBlinkSeveralTimes(int times)
+Led::showStatus(boolean status)
+{
+  digitalWrite(this->pin, status);
+}
+
+void
+Led::quicklyMakeBlinkSeveralTimes(int times)
 {
   for (int time = 0; time < times; time++)
     {
@@ -49,4 +59,3 @@ Leds::quicklyMakeBlinkSeveralTimes(int times)
       delay(100);
     }
 }
-

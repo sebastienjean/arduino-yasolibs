@@ -8,7 +8,7 @@
 #ifndef DIGITALOUTPUTINVERTED_H_
 #define DIGITALOUTPUTINVERTED_H_
 
-#include <DigitalOutput.h>
+#include <ext/DigitalOutput.h>
 
 class DigitalOutputInverted: public DigitalOutput {
 public:

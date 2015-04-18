@@ -7,7 +7,8 @@
 
 #ifndef DIGITALOUTPUT_H_
 #define DIGITALOUTPUT_H_
-#include <IDigitalOutput.h>
+
+#include <ext/IDigitalOutput.h>
 
 class DigitalOutput:public IDigitalOutput {
 private :

@@ -17,7 +17,7 @@
 #ifndef LEDS_h
 #define LEDS_h
 
-#include <Led.h>
+#include <core/Led.h>
 
 /**
  * This class wraps a set of LEDs.

@@ -7,7 +7,9 @@
 
 #ifndef LEDV2_H_
 #define LEDV2_H_
-#include <IDigitalOutput.h>
+
+#include <ext/IDigitalOutput.h>
+
 class LedV2 {
 private :
 	static const unsigned long OutputStateHoldingTime=100; // in ms

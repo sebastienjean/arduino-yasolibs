@@ -5,7 +5,7 @@
  *      Author: Christian
  */
 
-#include <DigitalOutputInverted.h>
+#include <ext/DigitalOutputInverted.h>
 #include <Arduino.h>
 
 DigitalOutputInverted::DigitalOutputInverted(unsigned char pinNumber):DigitalOutput(pinNumber) {

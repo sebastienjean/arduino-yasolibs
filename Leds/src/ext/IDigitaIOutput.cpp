@@ -5,7 +5,7 @@
  *      Author: Christian
  */
 
-#include <IDigitalOutput.h>
+#include <ext/IDigitalOutput.h>
 
 IDigitalOutput::IDigitalOutput() {
 	// TODO Auto-generated constructor stub

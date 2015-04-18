@@ -5,7 +5,7 @@
  *      Author: Christian
  */
 
-#include <DigitalOutput.h>
+#include <ext/DigitalOutput.h>
 #include <Arduino.h>
 
 DigitalOutput::DigitalOutput(unsigned char pinNumber):m_pinNumber(pinNumber) {
