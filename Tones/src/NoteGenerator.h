@@ -2,7 +2,7 @@
 #define NOTE_GENERATOR_h
 
 #include <AudioToneGenerator.h>
-#include<Note.h>
+#include <Note.h>
 
 /**
  * This class allows to play notes using a given audioToneGenerator.

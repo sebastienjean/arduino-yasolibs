@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include <core/Arduino.h>
 
 #include <MelodyGenerator.h>
 #include <NoteGenerator.h>

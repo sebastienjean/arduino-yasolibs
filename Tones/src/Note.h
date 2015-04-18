@@ -1,7 +1,7 @@
 #ifndef NOTE_h
 #define NOTE_h
 
-#include <Arduino.h>
+#include <core/Arduino.h>
 
 /**
  * This class allows to handle notes
