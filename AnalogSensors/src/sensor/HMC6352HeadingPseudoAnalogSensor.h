@@ -14,37 +14,36 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef MOCK_ANALOG_SENSOR_h
-#define MOCK_ANALOG_SENSOR_h
+#ifndef HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
+#define HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
 
-#include <AnalogSensor.h>
+#include <Arduino.h>
+#include <core/AnalogSensor.h>
+
+#define HMC6352_ADDRESS 0b00100001
+
+#define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 12
+
+#define HMC6352_NUMBER_OF_BYTES_TO_READ 2
+
+#define HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS 10
+
+#define HMC6352_GET_DATA_COMMAND "A"
+
 /**
- * This class allows to handle mock analog sensors.
- * Mock analog sensors always return the same preset value
+ * This class allows to consider an HMC6352 I2C compass as a pseudo ADC on which
+ * a (pseudo) heading analog sensor is attached
  */
-class MockAnalogSensor : public AnalogSensor
+class HMC6352HeadingPseudoAnalogSensor : public AnalogSensor
 {
-private:
-
-  /**
-   * Value to be returned
-   */
-  uint16_t valueToBeReturned;
-
-  /**
-   * Resolution to be returned
-   */
-  uint8_t resolutionToBeReturned;
-
 public:
 
   /**
-   * Creates a mock sensor associated to given return value and resolution
+   * Creates a HMC6352 heading pseudo analog sensor instance.
    *
-   * @param valueToBeReturned value to be returned
-   * @param resolutionToBeReturned resolution to be returned
+   * @param address address on the I2C bus
    */
-  MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned );
+  HMC6352HeadingPseudoAnalogSensor();
 
   /**
    * Reads analog sensor value.

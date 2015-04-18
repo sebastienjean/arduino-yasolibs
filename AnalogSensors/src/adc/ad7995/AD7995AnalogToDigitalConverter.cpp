@@ -14,7 +14,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <AD7995AnalogToDigitalConverter.h>
+#include <adc/ad7995/AD7995AnalogToDigitalConverter.h>
 #include <Wire.h>
 
 AD7995AnalogToDigitalConverter::AD7995AnalogToDigitalConverter(uint8_t address)

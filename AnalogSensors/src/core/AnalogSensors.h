@@ -19,7 +19,7 @@
 
 #include <pins_arduino.h>
 
-#include <AnalogSensor.h>
+#include <core/AnalogSensor.h>
 
 /**
  * This class wraps a set of analog sensors.

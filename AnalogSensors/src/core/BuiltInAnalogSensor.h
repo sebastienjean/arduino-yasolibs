@@ -18,7 +18,7 @@
 #define BUILT_IN_ANALOG_SENSOR_h
 
 #include <Arduino.h>
-#include <AnalogSensor.h>
+#include <core/AnalogSensor.h>
 
 #define BUILTIN_ADC_RESOLUTION 10
 

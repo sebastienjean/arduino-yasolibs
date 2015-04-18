@@ -14,7 +14,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <HMC6352HeadingPseudoAnalogSensor.h>
+#include <sensor/HMC6352HeadingPseudoAnalogSensor.h>
 #include <Wire.h>
 
 HMC6352HeadingPseudoAnalogSensor::HMC6352HeadingPseudoAnalogSensor() :

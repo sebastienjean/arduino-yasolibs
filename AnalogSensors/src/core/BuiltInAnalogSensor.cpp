@@ -13,22 +13,21 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <AnalogSensor.h>
+#include <core/BuiltInAnalogSensor.h>
 
-AnalogSensor::AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel)
+BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel) : AnalogSensor(NULL, channel)
 {
-  this->adc = adc;
-  this->channel = channel;
+  pinMode(this->channel, INPUT);
 }
 
 uint16_t
-AnalogSensor::read()
+BuiltInAnalogSensor::read()
 {
-  return this->adc->read(this->channel);
+  return analogRead(this->channel);
 }
 
 uint8_t
-AnalogSensor::getAdcResolution()
+BuiltInAnalogSensor::getAdcResolution()
 {
-  return this->adc->getResolution();
+  return BUILTIN_ADC_RESOLUTION;
 }

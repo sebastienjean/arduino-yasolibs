@@ -14,7 +14,7 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MCP3428AnalogToDigitalConverter.h>
+#include <adc/mcp3428/MCP3428AnalogToDigitalConverter.h>
 #include <Wire.h>
 
 MCP3428AnalogToDigitalConverter::MCP3428AnalogToDigitalConverter(

@@ -18,7 +18,7 @@
 #define AD7995_h
 
 #include <Arduino.h>
-#include <AnalogToDigitalConverter.h>
+#include <core/AnalogToDigitalConverter.h>
 
 #define AD7995_RESOLUTION 10;
 

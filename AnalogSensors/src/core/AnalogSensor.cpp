@@ -13,32 +13,22 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include <core/AnalogSensor.h>
 
-#include <AnalogSensors.h>
-
-AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, uint16_t analogSensorsAmount)
+AnalogSensor::AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel)
 {
-  this->analogSensors = analogSensors;
-  this->analogSensorsAmount = analogSensorsAmount;
+  this->adc = adc;
+  this->channel = channel;
 }
 
 uint16_t
-AnalogSensors::read(uint16_t sensorNumber)
+AnalogSensor::read()
 {
-  if ((sensorNumber < 1) || (sensorNumber > getAmount()))
-      return 0;
-
-  return analogSensors[sensorNumber - 1]->read();
+  return this->adc->read(this->channel);
 }
 
-uint16_t
-AnalogSensors::getAmount()
+uint8_t
+AnalogSensor::getAdcResolution()
 {
-  return this->analogSensorsAmount;
-}
-
-AnalogSensor *
-AnalogSensors::getAnalogSensor(uint16_t analogSensorNumber)
-{
-  return (this->analogSensors)[analogSensorNumber-1];
+  return this->adc->getResolution();
 }

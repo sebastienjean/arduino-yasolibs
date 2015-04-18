@@ -14,43 +14,45 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
-#define HMC6352_HEADING_PSEUDO_ANALOG_SENSOR_h
+#ifndef ANALOG_SENSOR_h
+#define ANALOG_SENSOR_h
 
 #include <Arduino.h>
-#include <AnalogSensor.h>
-
-#define HMC6352_ADDRESS 0b00100001
-
-#define HMC6352_HEADING_PSEUDO_ADC_RESOLUTION 12
-
-#define HMC6352_NUMBER_OF_BYTES_TO_READ 2
-
-#define HMC6352_MAXIMUM_CONVERSION_DELAY_MILLIS 10
-
-#define HMC6352_GET_DATA_COMMAND "A"
+#include <core/AnalogToDigitalConverter.h>
 
 /**
- * This class allows to consider an HMC6352 I2C compass as a pseudo ADC on which
- * a (pseudo) heading analog sensor is attached
+ * This class allows to handle an analog sensor (up to 16-bit resolution)
  */
-class HMC6352HeadingPseudoAnalogSensor : public AnalogSensor
+class AnalogSensor
 {
+protected:
+
+  /**
+   * ADC to which the analog sensor is attached
+   */
+  AnalogToDigitalConverter *adc;
+
+  /**
+   * (ADC) channel to which the analog sensor is attached
+   */
+  uint8_t channel;
+
 public:
 
   /**
-   * Creates a HMC6352 heading pseudo analog sensor instance.
+   * Creates an analog sensor attached to a given channel of a given ADC.
    *
-   * @param address address on the I2C bus
+   * @param adc ADC to which the analog sensor is attached
+   * @param channel analog channel to which the sensor is attached
    */
-  HMC6352HeadingPseudoAnalogSensor();
+  AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel);
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  uint16_t
+  virtual uint16_t
   read(void);
 
   /**
@@ -58,7 +60,7 @@ public:
    *
    * @return ADC resolution (in bits)
    */
-  uint8_t
+  virtual uint8_t
   getAdcResolution(void);
 };
 

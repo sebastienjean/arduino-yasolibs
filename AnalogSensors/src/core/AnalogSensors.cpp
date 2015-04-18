@@ -14,21 +14,31 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <MockAnalogSensor.h>
+#include <core/AnalogSensors.h>
 
-MockAnalogSensor::MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned) : AnalogSensor(NULL, 0)
+AnalogSensors::AnalogSensors(AnalogSensor** analogSensors, uint16_t analogSensorsAmount)
 {
-  this->valueToBeReturned = valueToBeReturned;
+  this->analogSensors = analogSensors;
+  this->analogSensorsAmount = analogSensorsAmount;
 }
 
 uint16_t
-MockAnalogSensor::read(void)
+AnalogSensors::read(uint16_t sensorNumber)
 {
-  return this->valueToBeReturned;
+  if ((sensorNumber < 1) || (sensorNumber > getAmount()))
+      return 0;
+
+  return analogSensors[sensorNumber - 1]->read();
 }
 
-uint8_t
-MockAnalogSensor::getAdcResolution()
+uint16_t
+AnalogSensors::getAmount()
 {
-  return this->resolutionToBeReturned;
+  return this->analogSensorsAmount;
+}
+
+AnalogSensor *
+AnalogSensors::getAnalogSensor(uint16_t analogSensorNumber)
+{
+  return (this->analogSensors)[analogSensorNumber-1];
 }

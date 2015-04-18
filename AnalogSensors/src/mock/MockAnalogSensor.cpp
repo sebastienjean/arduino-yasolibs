@@ -13,21 +13,22 @@
  You should have received a copy of the GNU General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <BuiltInAnalogSensor.h>
 
-BuiltInAnalogSensor::BuiltInAnalogSensor(uint8_t channel) : AnalogSensor(NULL, channel)
+#include <mock/MockAnalogSensor.h>
+
+MockAnalogSensor::MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned) : AnalogSensor(NULL, 0)
 {
-  pinMode(this->channel, INPUT);
+  this->valueToBeReturned = valueToBeReturned;
 }
 
 uint16_t
-BuiltInAnalogSensor::read()
+MockAnalogSensor::read(void)
 {
-  return analogRead(this->channel);
+  return this->valueToBeReturned;
 }
 
 uint8_t
-BuiltInAnalogSensor::getAdcResolution()
+MockAnalogSensor::getAdcResolution()
 {
-  return BUILTIN_ADC_RESOLUTION;
+  return this->resolutionToBeReturned;
 }

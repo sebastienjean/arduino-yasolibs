@@ -18,7 +18,7 @@
 #define MCP3428_h
 
 #include <Arduino.h>
-#include <AnalogToDigitalConverter.h>
+#include <core/AnalogToDigitalConverter.h>
 
 #define MCP3428_DEFAULT_RESOLUTION 16
 

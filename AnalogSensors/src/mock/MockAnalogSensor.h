@@ -14,45 +14,44 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ANALOG_SENSOR_h
-#define ANALOG_SENSOR_h
+#ifndef MOCK_ANALOG_SENSOR_h
+#define MOCK_ANALOG_SENSOR_h
 
-#include <Arduino.h>
-#include <AnalogToDigitalConverter.h>
-
+#include <core/AnalogSensor.h>
 /**
- * This class allows to handle an analog sensor (up to 16-bit resolution)
+ * This class allows to handle mock analog sensors.
+ * Mock analog sensors always return the same preset value
  */
-class AnalogSensor
+class MockAnalogSensor : public AnalogSensor
 {
-protected:
+private:
 
   /**
-   * ADC to which the analog sensor is attached
+   * Value to be returned
    */
-  AnalogToDigitalConverter *adc;
+  uint16_t valueToBeReturned;
 
   /**
-   * (ADC) channel to which the analog sensor is attached
+   * Resolution to be returned
    */
-  uint8_t channel;
+  uint8_t resolutionToBeReturned;
 
 public:
 
   /**
-   * Creates an analog sensor attached to a given channel of a given ADC.
+   * Creates a mock sensor associated to given return value and resolution
    *
-   * @param adc ADC to which the analog sensor is attached
-   * @param channel analog channel to which the sensor is attached
+   * @param valueToBeReturned value to be returned
+   * @param resolutionToBeReturned resolution to be returned
    */
-  AnalogSensor(AnalogToDigitalConverter *adc, uint8_t channel);
+  MockAnalogSensor(uint16_t valueToBeReturned, uint8_t resolutionToBeReturned );
 
   /**
    * Reads analog sensor value.
    *
    * @return analog sensor value
    */
-  virtual uint16_t
+  uint16_t
   read(void);
 
   /**
@@ -60,7 +59,7 @@ public:
    *
    * @return ADC resolution (in bits)
    */
-  virtual uint8_t
+  uint8_t
   getAdcResolution(void);
 };
 
