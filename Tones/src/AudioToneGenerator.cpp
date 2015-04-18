@@ -1,4 +1,4 @@
-#include <core/Arduino.h>
+#include <Arduino.h>
 #include <AudioToneGenerator.h>
 
 AudioToneGenerator::AudioToneGenerator(int outputPin)

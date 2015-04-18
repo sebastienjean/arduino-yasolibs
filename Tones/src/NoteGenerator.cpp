@@ -1,5 +1,4 @@
-#include <core/Arduino.h>
-
+#include <Arduino.h>
 #include <AudioToneGenerator.h>
 #include <NoteGenerator.h>
 #include <Note.h>

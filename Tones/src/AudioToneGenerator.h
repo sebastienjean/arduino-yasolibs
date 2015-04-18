@@ -1,7 +1,7 @@
 #ifndef AUDIOTONE_GENERATOR_h
 #define AUDIOTONE_GENERATOR_h
 
-#include <core/Arduino.h>
+#include <Arduino.h>
 
 /**
  * This class allows to generate audio signals on a given output pin
