@@ -16,8 +16,8 @@
 #include <Arduino.h>
 #include <SD.h>
 
-#include <Logger.h>
-#include <SDFileLogger.h>
+#include <core/Logger.h>
+#include <SD/SDFileLogger.h>
 
 SDFileLogger::SDFileLogger(SDClass *sd, char * filePath)
 {

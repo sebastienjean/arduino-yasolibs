@@ -17,7 +17,7 @@
 #ifndef SDFILE_LOGGER_h
 #define SDFILE_LOGGER_h
 
-#include <Logger.h>
+#include <core/Logger.h>
 #include <SD.h>
 
 /**

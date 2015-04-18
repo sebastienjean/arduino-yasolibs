@@ -4,7 +4,6 @@
 	<comment></comment>
 	<projects>
 		<project>ArduinoCore</project>
-		<project>SD</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
