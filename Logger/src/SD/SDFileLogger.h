@@ -18,49 +18,60 @@
 #define SDFILE_LOGGER_h
 
 #include <core/Logger.h>
+#include <inttypes.h>
 #include <SD.h>
 
 /**
  * This class allows to log raw bytes or text lines on a given file stored on a FAT32 formatted SD card.
  */
-class SDFileLogger : public Logger
-{
+class SDFileLogger: public Logger {
 private:
 
-  /**
-   * Destination file path
-   */
-  char *filePath;
+	/**
+	 * Destination file path
+	 */
+	char *filePath;
 
-  /**
-   * SD used to log messages
-   */
-  SDClass *sd;
+	/**
+	 * SD used to log messages
+	 */
+	SDClass *sd;
+
+	/**
+	 * Post-write delay, in milliseconds
+	 */
+	uint16_t millis;
 
 public:
 
-  /**
-   * Creates a new logger, for given SD and destination file path
-   *
-   * @param path destination file path
-   */
-  SDFileLogger(SDClass *sd, char *path);
+	/**
+	 * Creates a new logger, for given SD and destination file path
+	 *
+	 * @param path destination file path
+	 */
+	SDFileLogger(SDClass *sd, char *path);
 
-  boolean
-  logMessage(char *message, boolean newLine);
+	/**
+	 * Creates a new logger, for given SD, destination file path,
+	 * and specified delay in ms after writing.
+	 *
+	 * @param path destination file path
+	 */
+	SDFileLogger(SDClass *sd, char *path, uint16_t millis);
 
-  boolean
-  logMessage(byte messageBytes[], int amount);
+	boolean
+	logMessage(char *message, boolean newLine);
 
-  /**
-   * Erases log file content.
-   * @return log file deletion status
-   */
-  boolean
-  clear(void);
+	boolean
+	logMessage(byte messageBytes[], uint16_t amount);
+
+	/**
+	 * Erases log file content.
+	 * @return log file deletion status
+	 */
+	boolean
+	clear(void);
 };
-
-
 
 #endif
 

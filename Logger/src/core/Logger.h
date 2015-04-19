@@ -18,6 +18,8 @@
 #define LOGGER_h
 
 #include <Arduino.h>
+#include <inttypes.h>
+
 /**
  * This (abstract) class allows to log messages
  */
@@ -43,7 +45,7 @@ public:
    * @return logging success status
    */
   virtual boolean
-  logMessage(byte messageBytes[], int amount) = 0;
+  logMessage(byte messageBytes[], uint16_t amount) = 0;
 
   /**
    * Clear log content (optional).
