@@ -124,7 +124,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/mega}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/avr/lib/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/EEPROM/src}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.1649105757" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
@@ -135,7 +135,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/mega}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/avr/lib/EEPROM}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/EEPROM/src}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.cppcompiler.input.1990773542" superClass="de.innot.avreclipse.cppcompiler.input"/>
 							</tool>

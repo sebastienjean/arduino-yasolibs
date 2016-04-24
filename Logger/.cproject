@@ -50,7 +50,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/standard}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src/utility}&quot;"/>
 								</option>
 								<option id="de.innot.avreclipse.cppcompiler.option.optimize.other.2086348615" name="Other Optimization Flags" superClass="de.innot.avreclipse.cppcompiler.option.optimize.other" value="-ffunction-sections -fdata-sections" valueType="string"/>
 								<option id="de.innot.avreclipse.cppcompiler.option.allwarn.1729631665" name="All Warnings (-Wall)" superClass="de.innot.avreclipse.cppcompiler.option.allwarn" value="false" valueType="boolean"/>
@@ -82,7 +83,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/standard}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src/utility}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.734436418" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
@@ -123,7 +125,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/mega}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src/utility}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.1649105757" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
@@ -134,7 +137,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/core}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/variants/mega}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/src/lib/SD/src/utility}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.cppcompiler.input.1990773542" superClass="de.innot.avreclipse.cppcompiler.input"/>
 							</tool>
